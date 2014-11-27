@@ -41,7 +41,7 @@ namespace Back_F.ControllersApi
             Flickr f = Models.FlickrManager.GetInstance();
             if (f.OAuthAccessToken != null) f.OAuthAccessToken = null;
             if (f.OAuthAccessTokenSecret != null) f.OAuthAccessTokenSecret = null;
-            OAuthRequestToken token = f.OAuthGetRequestToken("http://localhost/Licenta/sitejs/homepage/");
+            OAuthRequestToken token = f.OAuthGetRequestToken("http://localhost:99/homepage/");
             string url = f.OAuthCalculateAuthorizationUrl(token.Token, AuthLevel.Read);
             Authentication.secret = token.TokenSecret;
             Authentication.token = token.Token;

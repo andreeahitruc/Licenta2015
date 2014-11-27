@@ -19,7 +19,7 @@
                     data: data,
                     success: function (dataReturned) {
                         if (dataReturned == null)
-                            window.location.replace("http://localhost/Licenta/sitejs/index.html");
+                            window.location.replace("../index.html");
                         console.log(dataReturned);
                         var datax = dataReturned.userId + delimiter + dataReturned.fullName;
                         createCookie('UserProfile', datax);
@@ -42,13 +42,13 @@
                     }
                 })
             } else {
-                window.location.replace("http://localhost/Licenta/sitejs/index.html");
+                window.location.replace("../index.html");
             }
         
         
         $(document).on('click', '#logOut', function () {
             deleteCookie('UserProfile');
-            window.location.replace("http://localhost/Licenta/sitejs/index.html");
+            window.location.replace("../index.html");
         })
     });
  function GetUserFriends(idUser)

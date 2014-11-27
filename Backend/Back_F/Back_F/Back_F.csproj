@@ -252,12 +252,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Friends_Service\Friends_Service.csproj">
-      <Project>{7bd4e429-60c7-4833-9b6c-7f24b24246e9}</Project>
-      <Name>Friends_Service</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="FlickrNet.chm" />
   </ItemGroup>
   <ItemGroup>
