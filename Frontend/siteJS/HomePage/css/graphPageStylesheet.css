@@ -1,0 +1,24 @@
+body{
+	text-align: center;
+}
+.container{
+	width:100%;
+}
+.rightBar{
+	float:left;
+}
+.leftBar{
+	float:left;
+	margin-right: 10;
+}
+.graphDiv{
+	margin:0 auto;
+}
+.modalFriendImage{
+	width: 60px;
+	height: 60px;
+}
+.nameCategCon {
+float: left;
+margin-right: 10;
+}

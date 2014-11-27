@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="flickr_tablesModelStoreContainer" CdmEntityContainer="flickr_tablesEntities1">
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="flickr_tablesModel.category">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Category1" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="friends">
+      <EntityTypeMapping TypeName="flickr_tablesModel.friend">
+        <MappingFragment StoreEntitySet="friends">
+          <ScalarProperty Name="IdFriend" ColumnName="IdFriend" />
+          <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="friendtags">
+      <EntityTypeMapping TypeName="flickr_tablesModel.friendtag">
+        <MappingFragment StoreEntitySet="friendtags">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FriendId" ColumnName="FriendId" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="linkfriendcategories">
+      <EntityTypeMapping TypeName="flickr_tablesModel.linkfriendcategory">
+        <MappingFragment StoreEntitySet="linkfriendcategory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdFriend" ColumnName="IdFriend" />
+          <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="linkfriends">
+      <EntityTypeMapping TypeName="flickr_tablesModel.linkfriend">
+        <MappingFragment StoreEntitySet="linkfriends">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdFriend" ColumnName="IdFriend" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="flickr_tablesModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="words">
+      <EntityTypeMapping TypeName="flickr_tablesModel.word">
+        <MappingFragment StoreEntitySet="words">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Word1" ColumnName="Word" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

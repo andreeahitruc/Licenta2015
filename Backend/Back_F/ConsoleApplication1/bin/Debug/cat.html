@@ -1,0 +1,81 @@
+
+  <div name="nicu">
+    <input id="0" title="Other"/>
+    <input id="41" title="Airplanes"/>
+    <input id="1" title="Animals"/>
+    <input id="25" title="Aquariums"/>
+    <input id="2" title="Architecture"/>
+    <input id="3" title="Art"/>
+    <input id="43" title="Arts and Crafts"/>
+    <input id="39" title="Births"/>
+    <input id="4" title="Boats"/>
+    <input id="5" title="Business"/>
+    <input id="6" title="Cars"/>
+    <input id="47" title="Children"/>
+    <input id="7" title="Competitions"/>
+    <input id="26" title="Computers"/>
+    <input id="48" title="Dance"/>
+    <input id="40" title="Electronics"/>
+    <input id="8" title="Events"/>
+    <input id="9" title="Family"/>
+    <input id="10" title="Fashion"/>
+    <input id="51" title="Flowers"/>
+    <input id="57" title="Food"/>
+    <input id="45" title="Friends"/>
+    <input id="56" title="Funerals"/>
+    <input id="32" title="Genealogy"/>
+    <input id="63" title="Grandchildren"/>
+    <input id="11" title="Groups"/>
+    <input id="59" title="History"/>
+    <input id="12" title="Hobbies"/>
+    <input id="31" title="Holidays"/>
+    <input id="30" title="Humor"/>
+    <input id="53" title="Jewelry"/>
+    <input id="62" title="Journalism"/>
+    <input id="13" title="Landscapes"/>
+    <input id="54" title="Machines"/>
+    <input id="14" title="Motorcycles"/>
+    <input id="29" title="Movies"/>
+    <input id="34" title="Music"/>
+    <input id="15" title="Nature"/>
+    <input id="44" title="Parties"/>
+    <input id="16" title="People"/>
+    <input id="37" title="Pets"/>
+    <input id="27" title="Photography"/>
+    <input id="55" title="Politics"/>
+    <input id="28" title="Portfolio"/>
+    <input id="52" title="Portraits"/>
+    <input id="17" title="Professional"/>
+    <input id="36" title="Religion"/>
+    <input id="46" title="School"/>
+    <input id="35" title="Spirituality"/>
+    <input id="18" title="Sports"/>
+    <input id="19" title="Still Life"/>
+    <input id="50" title="Street Scenes"/>
+    <input id="49" title="Theater"/>
+    <input id="42" title="Trains"/>
+    <input id="20" title="Travel"/>
+    <input id="21" title="Trucks"/>
+    <input id="58" title="Underwater"/>
+    <input id="33" title="Vacation"/>
+    <input id="24" title="Video Games"/>
+    <input id="61" title="Weather"/>
+    <input id="23" title="Weddings"/>
+    <input id="38" title="Woodworking"/>
+    <input id="60" title="Zoos"/>
+  </div>
+  <span id='spann'></span>
+  <div id="all"></div>
+  <script>
+var inputs, index;
+var all;
+inputs = document.getElementsByTagName('input');
+for (index = 0; index < inputs.length; ++index) {
+    //if(index >0) all = all + inputs[index].getAttribute("title")+',';
+    var btn = document.createElement("div");  
+    var t = document.createTextNode(inputs[index].getAttribute("title"));       // Create a text node
+    btn.appendChild(t); 
+    document.getElementById("all").appendChild(btn);
+}
+//alert(all);
+</script>

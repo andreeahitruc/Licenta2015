@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="flickr_tablesModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="linkfriendcategories" Relationship="Self.FK_linkfriendcategory_categories" FromRole="categories" ToRole="linkfriendcategory" />
+    <NavigationProperty Name="words" Relationship="Self.FK_Words_categories" FromRole="categories" ToRole="words" />
+  </EntityType>
+  <EntityType Name="friend">
+    <Key>
+      <PropertyRef Name="IdFriend" />
+    </Key>
+    <Property Name="IdFriend" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhotoUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Tags" Type="Int16" />
+    <NavigationProperty Name="friendtags" Relationship="Self.FK_FriendTags_friends" FromRole="friends" ToRole="friendtags" />
+    <NavigationProperty Name="linkfriendcategories" Relationship="Self.FK_linkfriendcategory_friends" FromRole="friends" ToRole="linkfriendcategory" />
+    <NavigationProperty Name="linkfriends" Relationship="Self.FK_linkfriends_friends" FromRole="friends" ToRole="linkfriends" />
+  </EntityType>
+  <EntityType Name="friendtag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FriendId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Tag" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="friend" Relationship="Self.FK_FriendTags_friends" FromRole="friendtags" ToRole="friends" />
+  </EntityType>
+  <EntityType Name="linkfriendcategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFriend" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdCategory" Type="Int32" Nullable="false" />
+    <Property Name="Tag" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK_linkfriendcategory_categories" FromRole="linkfriendcategory" ToRole="categories" />
+    <NavigationProperty Name="friend" Relationship="Self.FK_linkfriendcategory_friends" FromRole="linkfriendcategory" ToRole="friends" />
+  </EntityType>
+  <EntityType Name="linkfriend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdFriend" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="friend" Relationship="Self.FK_linkfriends_friends" FromRole="linkfriends" ToRole="friends" />
+    <NavigationProperty Name="user" Relationship="Self.FK_linkfriends_user" FromRole="linkfriends" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PhotoUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="linkfriends" Relationship="Self.FK_linkfriends_user" FromRole="user" ToRole="linkfriends" />
+  </EntityType>
+  <EntityType Name="word">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Word1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK_Words_categories" FromRole="words" ToRole="categories" />
+  </EntityType>
+  <Association Name="FK_linkfriendcategory_categories">
+    <End Role="categories" Type="Self.category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="linkfriendcategory" Type="Self.linkfriendcategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="linkfriendcategory">
+        <PropertyRef Name="IdCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Words_categories">
+    <End Role="categories" Type="Self.category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="words" Type="Self.word" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="words">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendTags_friends">
+    <End Role="friends" Type="Self.friend" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="friendtags" Type="Self.friendtag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="friends">
+        <PropertyRef Name="IdFriend" />
+      </Principal>
+      <Dependent Role="friendtags">
+        <PropertyRef Name="FriendId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_linkfriendcategory_friends">
+    <End Role="friends" Type="Self.friend" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="linkfriendcategory" Type="Self.linkfriendcategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="friends">
+        <PropertyRef Name="IdFriend" />
+      </Principal>
+      <Dependent Role="linkfriendcategory">
+        <PropertyRef Name="IdFriend" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_linkfriends_friends">
+    <End Role="friends" Type="Self.friend" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="linkfriends" Type="Self.linkfriend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="friends">
+        <PropertyRef Name="IdFriend" />
+      </Principal>
+      <Dependent Role="linkfriends">
+        <PropertyRef Name="IdFriend" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_linkfriends_user">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="linkfriends" Type="Self.linkfriend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="linkfriends">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="flickr_tablesEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="friends" EntityType="Self.friend" />
+    <EntitySet Name="friendtags" EntityType="Self.friendtag" />
+    <EntitySet Name="linkfriendcategories" EntityType="Self.linkfriendcategory" />
+    <EntitySet Name="linkfriends" EntityType="Self.linkfriend" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="words" EntityType="Self.word" />
+    <AssociationSet Name="FK_linkfriendcategory_categories" Association="Self.FK_linkfriendcategory_categories">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="linkfriendcategory" EntitySet="linkfriendcategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Words_categories" Association="Self.FK_Words_categories">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="words" EntitySet="words" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendTags_friends" Association="Self.FK_FriendTags_friends">
+      <End Role="friends" EntitySet="friends" />
+      <End Role="friendtags" EntitySet="friendtags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_linkfriendcategory_friends" Association="Self.FK_linkfriendcategory_friends">
+      <End Role="friends" EntitySet="friends" />
+      <End Role="linkfriendcategory" EntitySet="linkfriendcategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_linkfriends_friends" Association="Self.FK_linkfriends_friends">
+      <End Role="friends" EntitySet="friends" />
+      <End Role="linkfriends" EntitySet="linkfriends" />
+    </AssociationSet>
+    <AssociationSet Name="FK_linkfriends_user" Association="Self.FK_linkfriends_user">
+      <End Role="user" EntitySet="users" />
+      <End Role="linkfriends" EntitySet="linkfriends" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

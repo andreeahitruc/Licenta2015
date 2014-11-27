@@ -1,0 +1,45 @@
+body{
+   height:100%;
+   background-color: #F3F3F3;
+}
+.list{
+   display: table;
+   margin: auto;
+}
+.list th{
+	font-family: 'Lato';
+	font-size: 20px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+.friendTab {
+position: relative;
+width: 300px;
+height: 95px;
+padding: 10px;
+border: 2px solid rgba(175, 175, 176, 0.33);
+border-radius: 3px;
+margin-bottom: 20px;
+margin-left: 10px;
+font-family: 'Lato';
+
+}
+.friendTab:hover {
+background-color: rgba(175, 175, 176, 0.33);
+}
+
+.friendName{
+	position: absolute;
+	left:100px;
+	top:10px;
+}
+.descriptionText{
+font-family: cursive;
+font-size: 15px;
+}
+.linkFriend img{
+	border: 1px solid rgb(171, 171, 171);
+}
+.linkFriend img:hover{
+border: 3px solid rgba(175, 175, 176, 0.33);
+}

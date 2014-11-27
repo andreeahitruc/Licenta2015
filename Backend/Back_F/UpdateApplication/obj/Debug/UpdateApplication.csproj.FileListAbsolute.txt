@@ -1,0 +1,9 @@
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\bin\Debug\EntityFramework.dll
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\bin\Debug\FlickrNet.dll
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\bin\Debug\UpdateApplication.exe.config
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\bin\Debug\UpdateApplication.exe
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\bin\Debug\UpdateApplication.pdb
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\bin\Debug\EntityFramework.xml
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\obj\Debug\UpdateApplication.exe
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\obj\Debug\UpdateApplication.pdb
+C:\xampp\htdocs\LicentaBack\Back_F\UpdateApplication\obj\Debug\UpdateApplication.csprojResolveAssemblyReference.cache

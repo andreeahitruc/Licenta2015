@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1eb035f434f049e490f7d71f24292b90" Name="Diagram1">
+        <EntityTypeShape EntityType="flickr_tablesModel.linkfriend" Width="1.5" PointX="4.125" PointY="0.5" />
+        <EntityTypeShape EntityType="flickr_tablesModel.user" Width="1.5" PointX="0.875" PointY="1.875" />
+        <AssociationConnector Association="flickr_tablesModel.FK_linkfriends_user" />
+        <EntityTypeShape EntityType="flickr_tablesModel.category" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="flickr_tablesModel.word" Width="1.5" PointX="4.375" PointY="3.5" />
+        <AssociationConnector Association="flickr_tablesModel.FK_Words_categories" />
+        <EntityTypeShape EntityType="flickr_tablesModel.friendtag" Width="1.5" PointX="10.375" PointY="5.375" />
+        <EntityTypeShape EntityType="flickr_tablesModel.friend" Width="1.5" PointX="6.625" PointY="1.875" />
+        <AssociationConnector Association="flickr_tablesModel.FK_FriendTags_friends" />
+        <AssociationConnector Association="flickr_tablesModel.FK_linkfriends_friends" />
+        <EntityTypeShape EntityType="flickr_tablesModel.linkfriendcategory" Width="1.5" PointX="8.875" PointY="2.25" />
+        <AssociationConnector Association="flickr_tablesModel.FK_linkfriendcategory_categories" />
+        <AssociationConnector Association="flickr_tablesModel.FK_linkfriendcategory_friends" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
