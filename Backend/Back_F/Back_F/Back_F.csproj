@@ -205,13 +205,17 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Authentication.cs" />
+    <Compile Include="Models\Authentification.cs" />
     <Compile Include="Models\AuthOb.cs" />
     <Compile Include="Models\CreateGraph.cs" />
     <Compile Include="Models\FlickrManager.cs" />
+    <Compile Include="Models\Friends\DetailedCategory.cs" />
+    <Compile Include="Models\Friends\DetailedCategoryRet.cs" />
     <Compile Include="Models\Friends\DetailedLink.cs" />
     <Compile Include="Models\ListOfFriends.cs" />
     <Compile Include="Models\SaveImageFromUrl.cs" />
     <Compile Include="Models\StringTool.cs" />
+    <Compile Include="Models\UrlHelper.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\User\FlickerObj.cs" />
     <Compile Include="Models\User\GetUserDetails.cs" />

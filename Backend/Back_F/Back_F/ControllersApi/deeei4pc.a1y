@@ -120,17 +120,6 @@ namespace Back_F.ControllersApi
         public List<Models.Friends.DetailedCategoryRet> GetCommonPicture(Models.Friends.DetailedCategory ob)
         {
             Flickr f = Models.FlickrManager.GetInstance();
-            //Models.Authentification obpp = new Models.Authentification();
-            //string auth = obpp.authMethod();
-            //string oauth_token= auth.Split('=')[2].ToString().Split('&')[0];
-            //string oauth_token_secret = auth.Split('=')[3].ToString();
-            
-            //OAuthRequestToken requestToken = Models.Authentication.FullToken as OAuthRequestToken;
-            //f.OAuthAccessToken = requestToken.Token;
-            //f.OAuthAccessTokenSecret = requestToken.TokenSecret;
-            //OAuthAccessToken accessToken = f.OAuthGetAccessToken(requestToken, Models.User.GetUserDetails.auth_verifier);
-          //  f.OAuthAccessToken = requestToken;
-            
             string idFriend0 = ob.friends.ToString().Split(',')[0];
             string idFriend1 = ob.friends.ToString().Split(',')[1];
             int idCat = db.categories.Where(c => c.Category1 == ob.catName).First().Id;
@@ -147,16 +136,15 @@ namespace Back_F.ControllersApi
                 string[] urlArray;
                 foreach (var item in tagsList)
                 {
-                    tags.Add(item.Tag);//Auth auth = FlickrObj.AuthGetToken(frob);
-                    //FlickrObj.AuthToken = auth.Token;
+                    tags.Add(item.Tag);
                     var options = new PhotoSearchOptions();
+                    
                     options.TagMode = TagMode.AnyTag;
                     options.Tags = item.Tag.ToString();
                     options.UserId = friend;
-                    options.Extras |= PhotoSearchExtras.DateTaken | PhotoSearchExtras.MediumUrl | PhotoSearchExtras.Tags;
-                    options.PrivacyFilter = PrivacyFilter.PublicPhotos;
-                    PhotoCollection photos = f.PhotosSearch(options);
                     
+                    //options.Extras |= PhotoSearchExtras.DateTaken | PhotoSearchExtras.MediumUrl | PhotoSearchExtras.Tags;
+                    PhotoCollection photos = f.PhotosSearch(options);;
                     foreach(var itemA in photos)//extrac the needed url's
                     {
                         urlArray = new string[2];

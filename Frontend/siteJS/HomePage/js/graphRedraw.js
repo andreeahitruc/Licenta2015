@@ -33,7 +33,7 @@ var Renderer = function (canvas) {
                 //if (edges > 1) console.log(edges);
                 // draw a line from pt1 to pt2
                 if (edge.source.name == "you") {
-                    ctx.strokeStyle = " rgba(15, 0, 103, 20);"
+                    ctx.strokeStyle = "rgba(15, 0, 103, 20);"
                     ctx.lineWidth = (1)
                     ctx.beginPath()
                     ctx.moveTo(pt1.x, pt1.y)
@@ -61,14 +61,23 @@ var Renderer = function (canvas) {
                 // pt:   {x:#, y:#}  node position in screen coords
                 var w = 40, label = node.data.label, measure, image = new Image();
                 if (node.name != "you") {
-                    image.src = node.data.color;
-                    ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2,40,40);
-
-                    ctx.fillStyle = 'black';
-                    ctx.font = 'italic 14px sans-serif';
-                    ctx.textBaseline = 'top';
-                    measure = ctx.measureText(label);
-                    ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
+                    if (node.data.size == 1) {
+                        image.src = node.data.color;
+                        ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 20, 20);
+                        ctx.fillStyle = 'black';
+                        ctx.font = 'italic 14px sans-serif';
+                        ctx.textBaseline = 'top';
+                        measure = ctx.measureText(label);
+                        ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
+                    } else {
+                        image.src = node.data.color;
+                        ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 40, 40);
+                        ctx.fillStyle = 'black';
+                        ctx.font = 'italic 14px sans-serif';
+                        ctx.textBaseline = 'top';
+                        measure = ctx.measureText(label);
+                        ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
+                    }
                 } else {
                     image.src = "images/me.png";
                     ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2);

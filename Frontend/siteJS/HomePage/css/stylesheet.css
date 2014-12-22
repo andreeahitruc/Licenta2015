@@ -43,3 +43,10 @@ font-size: 15px;
 .linkFriend img:hover{
 border: 3px solid rgba(175, 175, 176, 0.33);
 }
+#categoryTable {
+    margin:0 auto;
+}
+.loadingImageModal {
+    width:100px;
+    height:100px;
+}
