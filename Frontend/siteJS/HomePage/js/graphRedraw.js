@@ -33,27 +33,48 @@ var Renderer = function (canvas) {
                 //if (edges > 1) console.log(edges);
                 // draw a line from pt1 to pt2
                 if (edge.source.name == "you") {
-                    ctx.strokeStyle = "rgba(15, 0, 103, 20);"
+                    ctx.strokeStyle = "blue"
                     ctx.lineWidth = (1)
                     ctx.beginPath()
                     ctx.moveTo(pt1.x, pt1.y)
                     ctx.lineTo(pt2.x, pt2.y)
                     ctx.stroke()
                 } else {
-                    ctx.strokeStyle = "rgba(215, 40, 40, 30);"
-                    ctx.lineWidth = (1)
-                    ctx.beginPath()
-                    ctx.moveTo(pt1.x, pt1.y)
-                    ctx.lineTo(pt2.x, pt2.y)
-                    if (finish) {
-                        ctx.fillStyle = 'blue';
-                        ctx.font = 'italic 12px sans-serif';
-                        ctx.textBaseline = 'top';
-                        measure = ctx.measureText(label);
-                        ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
+                    if (edge.source.data.categories != null || edge.target.data.categories != null) {
+                        if ($.inArray(',', edge.source.data.categories) <= -1 || $.inArray(',', edge.target.data.categories) <= -1) {
+                            ctx.strokeStyle = "rgba(215, 40, 40, 30);"
+                            ctx.lineWidth = (1)
+                            ctx.beginPath()
+                            ctx.moveTo(pt1.x, pt1.y)
+                            ctx.lineTo(pt2.x, pt2.y)
+                            if (finish) {
+                                ctx.fillStyle = 'blue';
+                                ctx.font = 'italic 12px sans-serif';
+                                ctx.textBaseline = 'top';
+                                measure = ctx.measureText(label);
+                                ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
+                            }
+                            ctx.stroke()
+                        }
                     }
-                    ctx.stroke()
                 }
+                if (edge.source.data.categories != null) {
+                    if ($.inArray(',', edge.source.data.categories) > -1) {
+                        ctx.strokeStyle = "orange"
+                        ctx.lineWidth = (1)
+                        ctx.beginPath()
+                        ctx.moveTo(pt1.x, pt1.y)
+                        ctx.lineTo(pt2.x, pt2.y)
+                        if (finish) {
+                            ctx.fillStyle = 'orange';
+                            ctx.font = 'italic 12px sans-serif';
+                            ctx.textBaseline = 'top';
+                            measure = ctx.measureText(label);
+                            ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
+                        }
+                        ctx.stroke()
+                    }
+                    }
             })
 
             particleSystem.eachNode(function (node, pt) {

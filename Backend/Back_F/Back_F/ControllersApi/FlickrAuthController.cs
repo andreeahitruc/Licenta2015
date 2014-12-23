@@ -47,28 +47,6 @@ namespace Back_F.ControllersApi
             Authentication.token = token.Token;
             Authentication.url = url;
             Authentication.FullToken = token;
-
-            //try {
-            //    var cat = db.categories.ToList();
-            //    foreach (var item in cat)
-            //    {
-            //        int id = item.Id;
-            //        TagCollection tags =  f.TagsGetRelated(item.Category1);
-            //        foreach (var itemx in tags)
-            //        {
-            //            word wd = new word()
-            //            {
-            //                CategoryId = id,
-            //                Word1 = itemx.TagName
-            //            };
-            //            db.words.Add(wd);
-            //        }
-            //    }
-            //    db.SaveChanges();
-            //}
-            //catch (Exception) { }
-
-
             return Authentication.secret + "====" + Authentication.token+ "====" + Authentication.url;
         }
 
@@ -83,6 +61,7 @@ namespace Back_F.ControllersApi
                 Flickr f = Models.FlickrManager.GetInstance();
                 OAuthRequestToken requestToken = Authentication.FullToken as OAuthRequestToken;
                 OAuthAccessToken accessToken = f.OAuthGetAccessToken(requestToken, Models.User.GetUserDetails.auth_verifier);
+              //  Models.UpdateComments.Update(f);
                 if (!Models.User.FlickerObj.UserFl.ContainsKey(accessToken.UserId))
                 Models.User.FlickerObj.UserFl.Add(accessToken.UserId, f);
                 try

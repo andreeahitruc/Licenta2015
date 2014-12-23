@@ -171,6 +171,9 @@
     <Compile Include="category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="commentsuser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ControllersApi\FlickrAuthController.cs" />
     <Compile Include="ControllersApi\FriendsController.cs" />
     <Compile Include="ControllersApi\GraphController.cs" />
@@ -215,6 +218,7 @@
     <Compile Include="Models\ListOfFriends.cs" />
     <Compile Include="Models\SaveImageFromUrl.cs" />
     <Compile Include="Models\StringTool.cs" />
+    <Compile Include="Models\UpdateComments.cs" />
     <Compile Include="Models\UrlHelper.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\User\FlickerObj.cs" />

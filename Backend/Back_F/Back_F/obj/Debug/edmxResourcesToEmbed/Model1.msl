@@ -13,6 +13,7 @@
     <EntitySetMapping Name="users">
       <EntityTypeMapping TypeName="flickr_tablesModel.user">
         <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="Token" ColumnName="Token" />
           <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
           <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -64,6 +65,17 @@
           <ScalarProperty Name="Tag" ColumnName="Tag" />
           <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
           <ScalarProperty Name="IdFriend" ColumnName="IdFriend" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="commentsusers">
+      <EntityTypeMapping TypeName="flickr_tablesModel.commentsuser">
+        <MappingFragment StoreEntitySet="commentsuser">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CommentatorId" ColumnName="CommentatorId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

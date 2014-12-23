@@ -12,19 +12,12 @@ namespace Back_F
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class commentsuser
     {
-        public user()
-        {
-            this.linkfriends = new HashSet<linkfriend>();
-        }
-    
+        public short Id { get; set; }
+        public string PhotoId { get; set; }
         public string UserId { get; set; }
-        public string UserName { get; set; }
-        public string PhotoUrl { get; set; }
-        public string Full_Name { get; set; }
-        public string Token { get; set; }
-    
-        public virtual ICollection<linkfriend> linkfriends { get; set; }
+        public string CommentatorId { get; set; }
+        public string Comment { get; set; }
     }
 }

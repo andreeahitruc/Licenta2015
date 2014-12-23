@@ -51,8 +51,51 @@ $(document).ready(function (e) {
                         });
                     }
                 });
+                setTimeout(function () {
+                    var contor = 0;var categoriesS = 0; var categoriesC = 0;
+                    sys.eachNode(function (node, pt) {
+                        contor++;
+                        if (node.data.categories != null)
+                        {
+                            if ($.inArray(',', node.data.categories) > -1) {
+                                categoriesC++;
+                            } else { categoriesS++; }
+                        }
+                    });
+                    var interBlue = setInterval(function () {
+                        $('#frBun').show();
+                        $('#frBun').css({ 'width': $('#frBun').width() + 10 });
+                        if ($('#frBun').width() >= 800) {
+                            $('#frBun').html('<p>Friendship bundles:'+' '+contor +' links</p>');
+                            clearInterval(interBlue);
+                            var procentRed = contor * (categoriesS / 100);
+                            var procentRedApplied = Math.round(procentRed) * 8;
+                            var procentOrange = contor * (categoriesC / 100);
+                            var procentOrApplied = Math.round(procentOrange) * 8;
+                            var interOrange = setInterval(function () {
+                                $('#strongBun').show();
+                                $('#strongBun').css({ 'width': $('#strongBun').width() + 10 });
+                                if ($('#strongBun').width() >= procentOrApplied*20) {
+                                    $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links    ' + Math.round(procentOrange) + '%</p>');
+                                    clearInterval(interOrange);
+                                }
+                            }, 200)
+                            var interRed = setInterval(function () {
+                                $('#goodBun').show();
+                                $('#goodBun').css({ 'width': $('#goodBun').width() + 10 });
+                                if ($('#goodBun').width() >= procentRedApplied * 20) {
+                                    $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links    ' + Math.round(procentRed) + '%</p>');
+                                    clearInterval(interRed);
+                                }
+                            }, 200)
+                        }
+                    }, 50)
+               
+                   
+                }, 1000);
             }
         });
+      
     })
 });
 function addEdgeNew(sys, u, v, catName) {
@@ -62,13 +105,30 @@ function addEdgeNew(sys, u, v, catName) {
         currentEdge = sys.getEdges(u, v[x]).concat(sys.getEdges(v[x], u));
         if (currentEdge.length == 0) {
             var test = u + ',' + v[x]; var testInv = v[x] + ',' + u;
-            if (($.inArray(test, arrayLinks) <= -1) && ($.inArray(testInv, arrayLinks) <= -1) && v[x] != u) {
-                arrayLinks.push(test);
-                var intNode = sys.addNode(test, { 'label': catName, 'color': 'images/category.png', 'size': 1,'friends':test });
-                //sys.addEdge(u, v[x], { color: 'red', label: catName });
-                sys.addEdge(u, intNode, { color: 'red', label: catName });
-                sys.addEdge(intNode, v[x], { color: 'red', label: catName });
-                //var edge = sys.addEdge(u, v[x], { color: 'red', label: label + ", " + catName });
+            if ((($.inArray(test, arrayLinks) > -1) || ($.inArray(testInv, arrayLinks) > -1)) && v[x] != u) {
+                var node = sys.getNode(test);
+                if (node != null) {
+                    var LinkNode1 = sys.getNode(test.split(',')[0]);
+                    var LinkNode2 = sys.getNode(test.split(',')[1]);
+                    var edge1 = sys.getEdges(node, LinkNode1);
+                    var edge2 = sys.getEdges(node, LinkNode2);
+                    if (edge1.length != 0) 
+                        edge1[0].data.color = 'orange';
+                    if (edge2.length != 0)
+                    edge2[0].data.color = 'orange';
+                    node.data.categories = node.data.categories + ',' + catName;
+                }
+               // intNode= sys.addNode(test, { 'label': catName, 'color': 'images/category.png', 'size': 1, 'friends': test });//create an intermediate node for category
+            } else
+            {
+                if (v[x] != u) {
+                    arrayLinks.push(test);
+                    var intNode = sys.addNode(test, { 'label': "", 'color': 'images/category.png', 'size': 1, 'friends': test,'categories':catName });//create an intermediate node for category
+                    //sys.addEdge(u, v[x], { color: 'red', label: catName });
+                    sys.addEdge(intNode,u, { color: 'red', label: catName });
+                    sys.addEdge(intNode, v[x], { color: 'red', label: catName });
+                    //var edge = sys.addEdge(u, v[x], { color: 'red', label: label + ", " + catName });
+                }
             }
         }
     }
@@ -142,7 +202,7 @@ $(document).ready(function () {
                 } else {
                     $('.modalCategories').html('');
                     var ob = {
-                        catName: x.node.data.label,
+                        catName: x.node.data.categories,
                         friends: x.node.data.friends
                     }
                     $.ajax({
@@ -167,6 +227,9 @@ $(document).ready(function () {
                                 });
                                 $('#friend' + index + 'Tags').html('<p>' + tags + '</p>');
                             });
+                            $('.modalCategories').append('<div class="categoriesSection"><p>Interest Categories:</p></div>');
+                            $('.modalCategories').append('<div class="categories"><p>' + x.node.data.categories + '</p></div>');
+
                             //$.ajax({//get common pictures
                             //    type: 'POST',
                             //    url: apiBaseURL + '/CommonPictures/',
@@ -192,6 +255,7 @@ $(document).ready(function () {
         return false;
     }
    
-    $("#viewport").dblclick(nodepressed);   
+    $("#viewport").dblclick(nodepressed);
+   
 })
 

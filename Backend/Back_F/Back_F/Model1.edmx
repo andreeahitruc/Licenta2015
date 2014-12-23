@@ -12,6 +12,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Category" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
+        <EntityType Name="commentsuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhotoId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CommentatorId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="900" Nullable="false" />
+        </EntityType>
         <EntityType Name="friends">
           <Key>
             <PropertyRef Name="IdFriend" />
@@ -56,6 +66,7 @@
           <Property Name="UserName" Type="varchar" MaxLength="200" />
           <Property Name="PhotoUrl" Type="varchar" MaxLength="300" />
           <Property Name="Full Name" Type="varchar" MaxLength="200" />
+          <Property Name="Token" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="words">
           <Key>
@@ -151,6 +162,7 @@
         </Association>
         <EntityContainer Name="flickr_tablesModelStoreContainer">
           <EntitySet Name="categories" EntityType="Self.categories" Schema="flickr_tables" store:Type="Tables" />
+          <EntitySet Name="commentsuser" EntityType="Self.commentsuser" Schema="flickr_tables" store:Type="Tables" />
           <EntitySet Name="friends" EntityType="Self.friends" Schema="flickr_tables" store:Type="Tables" />
           <EntitySet Name="friendtags" EntityType="Self.friendtags" Schema="flickr_tables" store:Type="Tables" />
           <EntitySet Name="linkfriendcategory" EntityType="Self.linkfriendcategory" Schema="flickr_tables" store:Type="Tables" />
@@ -218,6 +230,7 @@
             <End Role="friend" EntitySet="friends" />
             <End Role="linkfriendcategory" EntitySet="linkfriendcategories" />
           </AssociationSet>
+          <EntitySet Name="commentsusers" EntityType="flickr_tablesModel.commentsuser" />
         </EntityContainer>
         <EntityType Name="linkfriend">
           <Key>
@@ -238,6 +251,7 @@
           <Property Name="PhotoUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Full_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="linkfriends" Relationship="flickr_tablesModel.FK_linkfriends_user" FromRole="user" ToRole="linkfriend" />
+          <Property Name="Token" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_linkfriends_user">
           <End Type="flickr_tablesModel.user" Role="user" Multiplicity="0..1">
@@ -375,6 +389,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="commentsuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhotoId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CommentatorId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -393,6 +417,7 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="flickr_tablesModel.user">
               <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Token" ColumnName="Token" />
                 <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
                 <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -444,6 +469,17 @@
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
                 <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
                 <ScalarProperty Name="IdFriend" ColumnName="IdFriend" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commentsusers">
+            <EntityTypeMapping TypeName="flickr_tablesModel.commentsuser">
+              <MappingFragment StoreEntitySet="commentsuser">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CommentatorId" ColumnName="CommentatorId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

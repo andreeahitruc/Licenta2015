@@ -32,6 +32,7 @@
       <End Role="friend" EntitySet="friends" />
       <End Role="linkfriendcategory" EntitySet="linkfriendcategories" />
     </AssociationSet>
+    <EntitySet Name="commentsusers" EntityType="flickr_tablesModel.commentsuser" />
   </EntityContainer>
   <EntityType Name="linkfriend">
     <Key>
@@ -52,6 +53,7 @@
     <Property Name="PhotoUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="Full_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="linkfriends" Relationship="flickr_tablesModel.FK_linkfriends_user" FromRole="user" ToRole="linkfriend" />
+    <Property Name="Token" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_linkfriends_user">
     <End Type="flickr_tablesModel.user" Role="user" Multiplicity="0..1">
@@ -189,4 +191,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="commentsuser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PhotoId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CommentatorId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

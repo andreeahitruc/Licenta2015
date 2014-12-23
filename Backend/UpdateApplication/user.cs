@@ -23,6 +23,7 @@ namespace UpdateApplication
         public string UserName { get; set; }
         public string PhotoUrl { get; set; }
         public string Full_Name { get; set; }
+        public string Token { get; set; }
     
         public virtual ICollection<linkfriend> linkfriends { get; set; }
     }

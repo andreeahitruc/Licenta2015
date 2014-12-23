@@ -94,7 +94,8 @@ namespace Back_F.ControllersApi
         {
             string idFriend0 = ob.friends.ToString().Split(',')[0];
             string idFriend1 = ob.friends.ToString().Split(',')[1];
-            int idCat = db.categories.Where(c => c.Category1 == ob.catName).First().Id;
+            int idCat = 0;
+            string[] arrayCat = ob.catName.Split(',');
             List<Models.Friends.DetailedCategoryRet> obRet = new List<Models.Friends.DetailedCategoryRet>();
             for (int i = 0; i < 2; i++)
             {
@@ -103,13 +104,18 @@ namespace Back_F.ControllersApi
                 var itemFriend = db.friends.Where(id => id.IdFriend == friend).First();
                 Models.Friends.DetailedCategoryRet obF = new Models.Friends.DetailedCategoryRet();
                 obF.friendName = (itemFriend.FullName == "") ? itemFriend.UserName : itemFriend.FullName; obF.friendPhoto = itemFriend.PhotoUrl;
-                var tagsList =  db.linkfriendcategories.Where(link=>link.IdCategory == idCat && link.IdFriend == friend);
-                List<PhotoCollection> photoColl = new List<PhotoCollection>(); 
-                foreach (var item in tagsList)
+                for (int x = 0; x < arrayCat.Length; x++)
                 {
-                    tags.Add(item.Tag);
+                    string cat = arrayCat[x];
+                    idCat = db.categories.Where(c => c.Category1 == cat).First().Id;
+                    var tagsList = db.linkfriendcategories.Where(link => link.IdCategory == idCat && link.IdFriend == friend);
+                    List<PhotoCollection> photoColl = new List<PhotoCollection>();
+                    foreach (var item in tagsList)
+                    {
+                        tags.Add(item.Tag);
+                    }
                 }
-                obF.tagsName = tags;
+                obF.tagsName = tags.Distinct().ToList();
                 obRet.Add(obF);
            
            }
@@ -122,7 +128,7 @@ namespace Back_F.ControllersApi
             Flickr f = Models.FlickrManager.GetInstance();
             //Models.Authentification obpp = new Models.Authentification();
             //string auth = obpp.authMethod();
-            //string oauth_token= auth.Split('=')[2].ToString().Split('&')[0];
+            //string oauth_token = auth.Split('=')[2].ToString().Split('&')[0];
             //string oauth_token_secret = auth.Split('=')[3].ToString();
             
             //OAuthRequestToken requestToken = Models.Authentication.FullToken as OAuthRequestToken;
@@ -137,7 +143,7 @@ namespace Back_F.ControllersApi
             List<Models.Friends.DetailedCategoryRet> obRet = new List<Models.Friends.DetailedCategoryRet>();
             for (int i = 0; i < 2; i++)
             {
-                var friend = ""; 
+                var friend = "";
                 List<string> tags = new List<string>();
                 if (i == 0) friend = idFriend0; else friend = idFriend1;
                 var tagsList = db.linkfriendcategories.Where(link => link.IdCategory == idCat && link.IdFriend == friend);
@@ -170,6 +176,26 @@ namespace Back_F.ControllersApi
                 obRet.Add(obF);
             }
             return obRet;
+        }
+        [HttpGet]
+        [POST("api/GetBestBundles/{id,id1}")]
+        public List<Models.Friends.DetailedCategoryRet> BestBundles(string id,string id1)
+        {
+            var friends = db.friends.ToList();
+            List<string[]> link = new List<string[]>();
+            var comments1 = (from e1 in db.commentsusers where
+                           e1.UserId == id
+                                select e1).ToList();
+            var comments2 = (from e1 in db.commentsusers
+                            where
+                                e1.UserId == id1
+                            select e1).ToList();
+            foreach(var item in comments1){
+                   
+
+            }
+
+            return null;
         }
     }
    

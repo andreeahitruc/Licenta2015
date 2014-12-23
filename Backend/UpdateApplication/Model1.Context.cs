@@ -32,5 +32,6 @@ namespace UpdateApplication
         public DbSet<linkfriend> linkfriends { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<word> words { get; set; }
+        public DbSet<comment> comments { get; set; }
     }
 }

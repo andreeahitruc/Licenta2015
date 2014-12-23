@@ -32,5 +32,6 @@ namespace Back_F
         public DbSet<friendtag> friendtags { get; set; }
         public DbSet<friend> friends { get; set; }
         public DbSet<linkfriendcategory> linkfriendcategories { get; set; }
+        public DbSet<commentsuser> commentsusers { get; set; }
     }
 }

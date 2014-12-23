@@ -7,6 +7,16 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Category" Type="varchar" MaxLength="200" Nullable="false" />
   </EntityType>
+  <EntityType Name="commentsuser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PhotoId" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="CommentatorId" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Comment" Type="varchar" MaxLength="900" Nullable="false" />
+  </EntityType>
   <EntityType Name="friends">
     <Key>
       <PropertyRef Name="IdFriend" />
@@ -51,6 +61,7 @@
     <Property Name="UserName" Type="varchar" MaxLength="200" />
     <Property Name="PhotoUrl" Type="varchar" MaxLength="300" />
     <Property Name="Full Name" Type="varchar" MaxLength="200" />
+    <Property Name="Token" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="words">
     <Key>
@@ -146,6 +157,7 @@
   </Association>
   <EntityContainer Name="flickr_tablesModelStoreContainer">
     <EntitySet Name="categories" EntityType="Self.categories" Schema="flickr_tables" store:Type="Tables" />
+    <EntitySet Name="commentsuser" EntityType="Self.commentsuser" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="friends" EntityType="Self.friends" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="friendtags" EntityType="Self.friendtags" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="linkfriendcategory" EntityType="Self.linkfriendcategory" Schema="flickr_tables" store:Type="Tables" />
