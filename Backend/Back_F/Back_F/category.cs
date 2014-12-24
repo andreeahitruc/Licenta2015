@@ -18,6 +18,7 @@ namespace Back_F
         {
             this.words = new HashSet<word>();
             this.linkfriendcategories = new HashSet<linkfriendcategory>();
+            this.linkusercategories = new HashSet<linkusercategory>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,6 @@ namespace Back_F
     
         public virtual ICollection<word> words { get; set; }
         public virtual ICollection<linkfriendcategory> linkfriendcategories { get; set; }
+        public virtual ICollection<linkusercategory> linkusercategories { get; set; }
     }
 }

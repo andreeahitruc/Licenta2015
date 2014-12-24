@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UpdateApplication
+namespace Back_F
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class comment
+    public partial class usertag
     {
-        public short Id { get; set; }
-        public string PhotoId { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
-        public string CommentatorId { get; set; }
-        public string Comment1 { get; set; }
+        public string Tag { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }

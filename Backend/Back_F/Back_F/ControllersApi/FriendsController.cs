@@ -162,8 +162,9 @@ namespace Back_F.ControllersApi
                 {
                     Flickr f = Models.FlickrManager.GetInstance();
                     List<string> tags = new List<string>();
+                    List<string> tagsUser = new List<string>();
                     Dictionary<string, List<string>> tagsList = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
-
+                    tagsUser = f.TagsGetListUser(userId).GroupBy(x => x.TagName).OrderByDescending(g => g.Count()).Take(10).Select(gg => gg.Key).ToList();
                     foreach (var user in listFriends)
                     {
                         tags = f.TagsGetListUser(user.IdFriend).GroupBy(x => x.TagName).OrderByDescending(g => g.Count()).Take(10).Select(gg => gg.Key).ToList();
@@ -178,6 +179,15 @@ namespace Back_F.ControllersApi
                             db.friendtags.Add(ftag);
                         }
                         user.Tags = 1;
+                    }
+                    foreach (string tagU in tagsUser)
+                    {
+                        usertag utag = new usertag()
+                        {
+                            UserId = userId,
+                            Tag = tagU
+                        };
+                        db.usertags.Add(utag);
                     }
                     db.SaveChanges();
 
@@ -196,7 +206,7 @@ namespace Back_F.ControllersApi
                                         {
                                             IdCategory = itemRes.CategoryId,
                                             IdFriend = item.Key,
-                                            Tag = tagItem
+                                            Tag = itemRes.Word1
                                         };
                                         db.linkfriendcategories.Add(catLink);
                                     }
@@ -204,6 +214,27 @@ namespace Back_F.ControllersApi
                                                 
                             }
                         }
+                        foreach (var tagItem in tagsUser)//selcet all tags from the list for iterated friend
+                        {
+                            var result = (from wordP in db.words
+                                          where wordP.Word1 == tagItem
+                                          select wordP).ToList();//check if for the iterated friend we have some tags like in ourdatabase
+                            {
+                                foreach (var itemRes in result)//check the above result...if Yes then we add the friend to the specific category of tags
+                                {
+                                    linkusercategory catLink = new linkusercategory()
+                                    {
+                                        Category = itemRes.CategoryId,
+                                        UserId= userId,
+                                        Tag = itemRes.Word1
+                                    };
+                                    db.linkusercategories.Add(catLink);
+                                }
+                            }
+
+                        }
+
+
                         db.SaveChanges();
                     }
                     catch (Exception) {

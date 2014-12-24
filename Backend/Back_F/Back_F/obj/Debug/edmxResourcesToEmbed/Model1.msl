@@ -80,5 +80,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="usertags">
+      <EntityTypeMapping TypeName="flickr_tablesModel.usertag">
+        <MappingFragment StoreEntitySet="usertags">
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="linkusercategories">
+      <EntityTypeMapping TypeName="flickr_tablesModel.linkusercategory">
+        <MappingFragment StoreEntitySet="linkusercategory">
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

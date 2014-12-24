@@ -17,6 +17,8 @@ namespace UpdateApplication
         public user()
         {
             this.linkfriends = new HashSet<linkfriend>();
+            this.linkusercategories = new HashSet<linkusercategory>();
+            this.usertags = new HashSet<usertag>();
         }
     
         public string UserId { get; set; }
@@ -26,5 +28,7 @@ namespace UpdateApplication
         public string Token { get; set; }
     
         public virtual ICollection<linkfriend> linkfriends { get; set; }
+        public virtual ICollection<linkusercategory> linkusercategories { get; set; }
+        public virtual ICollection<usertag> usertags { get; set; }
     }
 }

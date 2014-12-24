@@ -62,6 +62,37 @@ namespace UpdateApplication
                         List<friend> friends = db.friends.ToList();
                         Flickr f = GetInstance();
                         List<string> tags = new List<string>();
+                        var users = db.users.ToList();
+                        foreach (var user in users)
+                        {
+                            Console.WriteLine("Looking for tags for users");
+                            var tagsUser = f.TagsGetListUser(user.UserId).GroupBy(x => x.TagName).OrderByDescending(g => g.Count()).Take(10).Select(gg => gg.Key).ToList();
+                            foreach (string tagU in tagsUser)
+                            {
+                                usertag utag = new usertag()
+                                {
+                                    UserId = user.UserId,
+                                    Tag = tagU
+                                };
+                                db.usertags.Add(utag);
+                            };
+                            foreach (var tagItem in tagsUser)//select all tags from the list for iterated friend
+                            {
+                                var result = (from wordP in db.words
+                                              where wordP.Word1 == tagItem
+                                              select wordP).ToList();//check if for the iterated friend we have some tags like in ourdatabase
+                                foreach (var itemRes in result)//check the above result...if Yes then we add the friend to the specific category of tags
+                                {
+                                    linkusercategory catLink = new linkusercategory()
+                                    {
+                                        Category = itemRes.CategoryId,
+                                        UserId = user.UserId,
+                                        Tag = itemRes.Word1
+                                    };
+                                    db.linkusercategories.Add(catLink);
+                                }
+                            }
+                        }
                         Dictionary<string, List<string>> tagsList = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
                         foreach (var user in friends)
                         {
@@ -79,6 +110,7 @@ namespace UpdateApplication
                             }
                             user.Tags = 1;
                         }
+                       
                         db.SaveChanges();
                         try
                         {
@@ -95,7 +127,7 @@ namespace UpdateApplication
                                         {
                                             IdCategory = itemRes.CategoryId,
                                             IdFriend = item.Key,
-                                            Tag = tagItem
+                                            Tag = itemRes.Word1
                                         };
                                         db.linkfriendcategories.Add(catLink);
                                     }

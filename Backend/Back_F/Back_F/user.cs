@@ -17,6 +17,8 @@ namespace Back_F
         public user()
         {
             this.linkfriends = new HashSet<linkfriend>();
+            this.usertags = new HashSet<usertag>();
+            this.linkusercategories = new HashSet<linkusercategory>();
         }
     
         public string UserId { get; set; }
@@ -26,5 +28,7 @@ namespace Back_F
         public string Token { get; set; }
     
         public virtual ICollection<linkfriend> linkfriends { get; set; }
+        public virtual ICollection<usertag> usertags { get; set; }
+        public virtual ICollection<linkusercategory> linkusercategories { get; set; }
     }
 }

@@ -12,20 +12,12 @@ namespace UpdateApplication
     using System;
     using System.Collections.Generic;
     
-    public partial class category
+    public partial class usertag
     {
-        public category()
-        {
-            this.linkfriendcategories = new HashSet<linkfriendcategory>();
-            this.words = new HashSet<word>();
-            this.linkusercategories = new HashSet<linkusercategory>();
-        }
-    
         public int Id { get; set; }
-        public string Category1 { get; set; }
+        public string UserId { get; set; }
+        public string Tag { get; set; }
     
-        public virtual ICollection<linkfriendcategory> linkfriendcategories { get; set; }
-        public virtual ICollection<word> words { get; set; }
-        public virtual ICollection<linkusercategory> linkusercategories { get; set; }
+        public virtual user user { get; set; }
     }
 }

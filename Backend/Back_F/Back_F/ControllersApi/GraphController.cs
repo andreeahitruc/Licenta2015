@@ -46,6 +46,45 @@ namespace Back_F.ControllersApi
             return dict;
 
         }
+
+        [GET("api/DrawLinksForUser/{userId}")]
+        public Dictionary<string, Models.Friends.Linking> GetLinksUser(string userId)
+        {
+            try{
+
+                var catUser = db.linkusercategories.Where(x => x.UserId == userId).ToList().GroupBy(p=>p.Category);
+                Dictionary<string, Models.Friends.Linking> dictUser = new Dictionary<string, Models.Friends.Linking>();
+                foreach (var item in catUser)
+                {
+                    var itemx = (from f1 in db.linkfriendcategories
+                                join f2 in db.linkfriends on f1.IdFriend equals f2.IdFriend
+                                where f2.IdUser == userId && f1.IdCategory == item.Key
+                                select f1).ToList();
+
+                    int catId = item.Key;
+                    string cat = item.Key.ToString();
+                    string nameCat = db.categories.Where(id => id.Id == catId).First().Category1;
+                    Models.Friends.Linking obLink = new Models.Friends.Linking();
+                    obLink.CategoryId = catId;
+                    obLink.CategoryName = nameCat;
+                    obLink.friends = new Dictionary<string, string>();
+                    dictUser.Add(cat, obLink);
+                    foreach (var itemNew in itemx)
+                    {
+                        if (dictUser[cat].friends.ContainsKey(itemNew.IdFriend))
+                        {
+                            dictUser[cat].friends[itemNew.IdFriend] = dictUser[cat].friends[itemNew.IdFriend] + ',' + itemNew.Tag;
+                        }
+                        else
+                        {
+                            dictUser[cat].friends.Add(itemNew.IdFriend, itemNew.Tag);
+                        }
+                    }
+                }
+            return dictUser;
+            }
+            catch(Exception){return null;}
+        }
         [GET("api/GetUserLinks/{friendId}/{userId}")]
         public Models.Friends.DetailedLink GetFriendsLinktags(string friendId,string userId)
         {

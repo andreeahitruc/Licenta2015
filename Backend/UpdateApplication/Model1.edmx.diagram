@@ -18,7 +18,12 @@
         <AssociationConnector Association="flickr_tablesModel.FK_linkfriendcategory_friends" ManuallyRouted="false" />
         <AssociationConnector Association="flickr_tablesModel.FK_linkfriends_friends" ManuallyRouted="false" />
         <AssociationConnector Association="flickr_tablesModel.FK_linkfriends_user" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="flickr_tablesModel.comment" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="flickr_tablesModel.commentsuser" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="flickr_tablesModel.linkusercategory" Width="1.5" PointX="6" PointY="4.875" />
+        <EntityTypeShape EntityType="flickr_tablesModel.usertag" Width="1.5" PointX="3" PointY="14" />
+        <AssociationConnector Association="flickr_tablesModel.FK_linkusercategory_categories" />
+        <AssociationConnector Association="flickr_tablesModel.F_U" />
+        <AssociationConnector Association="flickr_tablesModel.FK_usertags_user" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

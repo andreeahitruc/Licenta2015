@@ -53,6 +53,15 @@
     <Property Name="IdUser" Type="varchar" MaxLength="50" />
     <Property Name="IdFriend" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="linkusercategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="Tag" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="user">
     <Key>
       <PropertyRef Name="UserId" />
@@ -63,6 +72,14 @@
     <Property Name="Full Name" Type="varchar" MaxLength="200" />
     <Property Name="Token" Type="varchar" MaxLength="300" />
   </EntityType>
+  <EntityType Name="usertags">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Tag" Type="varchar" MaxLength="300" Nullable="false" />
+  </EntityType>
   <EntityType Name="words">
     <Key>
       <PropertyRef Name="Id" />
@@ -71,7 +88,21 @@
     <Property Name="Word" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CategoryId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_FriendTags_friends">
+  <Association Name="F_U">
+    <End Role="user" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="linkusercategory" Type="Self.linkusercategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="linkusercategory">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_friendtags_friends">
     <End Role="friends" Type="Self.friends" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
@@ -141,6 +172,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_linkusercategory_categories">
+    <End Role="categories" Type="Self.categories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="linkusercategory" Type="Self.linkusercategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="linkusercategory">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_usertags_user">
+    <End Role="user" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="usertags" Type="Self.usertags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="usertags">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Words_categories">
     <End Role="categories" Type="Self.categories" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -162,9 +221,15 @@
     <EntitySet Name="friendtags" EntityType="Self.friendtags" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="linkfriendcategory" EntityType="Self.linkfriendcategory" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="linkfriends" EntityType="Self.linkfriends" Schema="flickr_tables" store:Type="Tables" />
+    <EntitySet Name="linkusercategory" EntityType="Self.linkusercategory" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="user" EntityType="Self.user" Schema="flickr_tables" store:Type="Tables" />
+    <EntitySet Name="usertags" EntityType="Self.usertags" Schema="flickr_tables" store:Type="Tables" />
     <EntitySet Name="words" EntityType="Self.words" Schema="flickr_tables" store:Type="Tables" />
-    <AssociationSet Name="FK_FriendTags_friends" Association="Self.FK_FriendTags_friends">
+    <AssociationSet Name="F_U" Association="Self.F_U">
+      <End Role="user" EntitySet="user" />
+      <End Role="linkusercategory" EntitySet="linkusercategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_friendtags_friends" Association="Self.FK_friendtags_friends">
       <End Role="friends" EntitySet="friends" />
       <End Role="friendtags" EntitySet="friendtags" />
     </AssociationSet>
@@ -183,6 +248,14 @@
     <AssociationSet Name="FK_linkfriends_user" Association="Self.FK_linkfriends_user">
       <End Role="user" EntitySet="user" />
       <End Role="linkfriends" EntitySet="linkfriends" />
+    </AssociationSet>
+    <AssociationSet Name="FK_linkusercategory_categories" Association="Self.FK_linkusercategory_categories">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="linkusercategory" EntitySet="linkusercategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_usertags_user" Association="Self.FK_usertags_user">
+      <End Role="user" EntitySet="user" />
+      <End Role="usertags" EntitySet="usertags" />
     </AssociationSet>
     <AssociationSet Name="FK_Words_categories" Association="Self.FK_Words_categories">
       <End Role="categories" EntitySet="categories" />

@@ -32,6 +32,14 @@ var Renderer = function (canvas) {
                 label = edge.data.label
                 //if (edges > 1) console.log(edges);
                 // draw a line from pt1 to pt2
+                if (edge.source.name == "you" && edge.target.name == readCookie('UserProfile')[0]) {
+                    ctx.strokeStyle = "gold"
+                    ctx.lineWidth = (1)
+                    ctx.beginPath()
+                    ctx.moveTo(pt1.x, pt1.y)
+                    ctx.lineTo(pt2.x, pt2.y)
+                    ctx.stroke()
+                }
                 if (edge.source.name == "you") {
                     ctx.strokeStyle = "blue"
                     ctx.lineWidth = (1)
@@ -60,13 +68,13 @@ var Renderer = function (canvas) {
                 }
                 if (edge.source.data.categories != null) {
                     if ($.inArray(',', edge.source.data.categories) > -1) {
-                        ctx.strokeStyle = "orange"
+                        ctx.strokeStyle = "green"
                         ctx.lineWidth = (1)
                         ctx.beginPath()
                         ctx.moveTo(pt1.x, pt1.y)
                         ctx.lineTo(pt2.x, pt2.y)
                         if (finish) {
-                            ctx.fillStyle = 'orange';
+                            ctx.fillStyle = 'green';
                             ctx.font = 'italic 12px sans-serif';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
@@ -82,22 +90,34 @@ var Renderer = function (canvas) {
                 // pt:   {x:#, y:#}  node position in screen coords
                 var w = 40, label = node.data.label, measure, image = new Image();
                 if (node.name != "you") {
-                    if (node.data.size == 1) {
-                        image.src = node.data.color;
-                        ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 20, 20);
-                        ctx.fillStyle = 'black';
-                        ctx.font = 'italic 14px sans-serif';
+                    if (node.name == readCookie('UserProfile')[0])
+                    {
+                        image.src = "images/me.png";
+                        ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2);
+                        ctx.fillStyle = 'red';
+                        ctx.font = 'italic 16px sans-serif';
                         ctx.textBaseline = 'top';
                         measure = ctx.measureText(label);
                         ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
-                    } else {
-                        image.src = node.data.color;
-                        ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 40, 40);
-                        ctx.fillStyle = 'black';
-                        ctx.font = 'italic 14px sans-serif';
-                        ctx.textBaseline = 'top';
-                        measure = ctx.measureText(label);
-                        ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
+                    } else
+                    {
+                        if (node.data.size == 1) {
+                            image.src = node.data.color;
+                            ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 20, 20);
+                            ctx.fillStyle = 'black';
+                            ctx.font = 'italic 14px sans-serif';
+                            ctx.textBaseline = 'top';
+                            measure = ctx.measureText(label);
+                            ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
+                        } else {
+                            image.src = node.data.color;
+                            ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 40, 40);
+                            ctx.fillStyle = 'black';
+                            ctx.font = 'italic 14px sans-serif';
+                            ctx.textBaseline = 'top';
+                            measure = ctx.measureText(label);
+                            ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
+                        }
                     }
                 } else {
                     image.src = "images/me.png";
@@ -179,3 +199,4 @@ var Renderer = function (canvas) {
     }
     return that
 }
+
