@@ -60,6 +60,14 @@
             success: function (data) {
                 $.ajax({
                     type: 'GET',
+                    url: apiBaseURL + '/GetBestBundles/',
+                    dataType: 'json',
+                    success: function (data) {
+                    }
+                });
+                
+                $.ajax({
+                    type: 'GET',
                     url: apiBaseURL + '/CreateList/' + idUser,
                     dataType: 'jsonp',
                     success: function (datax) {

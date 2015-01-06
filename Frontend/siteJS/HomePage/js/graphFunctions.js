@@ -62,34 +62,44 @@ $(document).ready(function (e) {
                             } else { categoriesS++; }
                         }
                     });
-                    var interBlue = setInterval(function () {
-                        $('#frBun').show();
-                        $('#frBun').css({ 'width': $('#frBun').width() + 10 });
-                        if ($('#frBun').width() >= 800) {
-                            $('#frBun').html('<p>Friendship bundles:'+' '+contor +' links</p>');
-                            clearInterval(interBlue);
-                            var procentRed = contor * (categoriesS / 100);
-                            var procentRedApplied = Math.round(procentRed) * 8;
-                            var procentOrange = contor * (categoriesC / 100);
-                            var procentOrApplied = Math.round(procentOrange) * 8;
-                            var interOrange = setInterval(function () {
-                                $('#strongBun').show();
-                                $('#strongBun').css({ 'width': $('#strongBun').width() + 10 });
-                                if ($('#strongBun').width() >= procentOrApplied * 20) {
-                                    $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links    ' + Math.round(procentOrange) + '%</p>');
-                                    clearInterval(interOrange);
-                                    var interRed = setInterval(function () {
-                                        $('#goodBun').show();
-                                        $('#goodBun').css({ 'width': $('#goodBun').width() + 10 });
-                                        if ($('#goodBun').width() >= procentRedApplied * 20) {
-                                            $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links    ' + Math.round(procentRed) + '%</p>');
-                                            clearInterval(interRed);
-                                        }
-                                    }, 400)
-                                }
-                            }, 50)
-                        }
-                    }, 50)
+                    var procentRed = contor * (categoriesS / 100);
+                    var procentRedApplied = Math.round(procentRed) * 8;
+                    var procentOrange = contor * (categoriesC / 100);
+                    var procentOrApplied = Math.round(procentOrange) * 8;
+                    $('#frBun').show();
+                    $('#frBun').html('<p>Friendship bundles:' + ' ' + contor + ' links</p>');
+                    $('#strongBun').show();
+                    $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links    ' + Math.round(procentOrange) + '%</p>');
+                    $('#goodBun').show();
+                    $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links    ' + Math.round(procentRed) + '%</p>');
+                    //var interBlue = setInterval(function () {
+                    //    $('#frBun').show();
+                    //    $('#frBun').css({ 'width': $('#frBun').width() + 10 });
+                    //    if ($('#frBun').width() >= 800) {
+                    //        $('#frBun').html('<p>Friendship bundles:'+' '+contor +' links</p>');
+                    //        clearInterval(interBlue);
+                    //        var procentRed = contor * (categoriesS / 100);
+                    //        var procentRedApplied = Math.round(procentRed) * 8;
+                    //        var procentOrange = contor * (categoriesC / 100);
+                    //        var procentOrApplied = Math.round(procentOrange) * 8;
+                    //        var interOrange = setInterval(function () {
+                    //            $('#strongBun').show();
+                    //            $('#strongBun').css({ 'width': $('#strongBun').width() + 10 });
+                    //            if ($('#strongBun').width() >= procentOrApplied * 20) {
+                    //                $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links    ' + Math.round(procentOrange) + '%</p>');
+                    //                clearInterval(interOrange);
+                    //                var interRed = setInterval(function () {
+                    //                    $('#goodBun').show();
+                    //                    $('#goodBun').css({ 'width': $('#goodBun').width() + 10 });
+                    //                    if ($('#goodBun').width() >= procentRedApplied * 20) {
+                    //                        $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links    ' + Math.round(procentRed) + '%</p>');
+                    //                        clearInterval(interRed);
+                    //                    }
+                    //                }, 400)
+                    //            }
+                    //        }, 50)
+                    //    }
+                    //}, 50)
                
                    
                 }, 1000);
@@ -104,7 +114,7 @@ $(document).ready(function (e) {
                 var YouNode = sys.getNode('you');
                 sys.addEdge(nodeNew,YouNode,{ color: 'yellow', label: ""});
                 $.each(data, function (index, value) {
-                    if (Object.keys(data[index]["friends"]).length > 1) {
+                    if (Object.keys(data[index]["friends"]).length >= 1) {
                         addEdgeNew(sys,readCookie('UserProfile')[0], Object.keys(data[index]["friends"]), data[index]["CategoryName"]);
                     }
                 });
@@ -160,7 +170,38 @@ $(document).ready(function () {
         if (x.distance < 20) {
             console.log(x.node.data.label);// get friend details
             if (x.node.data.linkNode == "true") {
-                alert('In progress....')
+                $('.modalCategories').html('');
+                var ob = {
+                    catName: x.node.data.categories,
+                    friends: x.node.data.friends
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseURL + '/GetCategoryUserDetails/',
+                    dataType: 'json',
+                    data: ob,
+                    success: function (data) {
+                        $('.modalFriendImage').attr('src', 'images/category.png');
+                        $('#friendDetails').modal('show');
+                          var html = '<div style="height:20px;"></div><table id="categoryTable"><tr><td id="friend0Name" align="center"></td><td></td><td id="friend1Name" align="center"></td></tr>' +
+                                                   '<tr><td id="friend0Img" align="center"></td><td align="center"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-link-128.png" style="height:60px"; width:70px;></img></td><td id="friend1Img" align="center"></td></tr>' +
+                                                   '<tr><td id="friend0Tags" align="center"></td><td align="center"></td><td id="friend1Tags" align="center"></td></tr>';
+                                $('.modalCategories').append(html);
+                                //  $('.modalCategories').append('<img src="../img/loading.gif" class="loadingImageModal" /> Retreving the common images...');
+                                //  $('.modalCategories').append('<div id="commonImages"></div>');
+                                $.each(data, function (index, value) {
+                                    $('#friend' + index + 'Name').html('<p>' + value.friendName + '</p>');
+                                    $('#friend' + index + 'Img').html('<img src="' + value.friendPhoto + '" style="height:40px;width:40px;border-radius:50%" />');
+                                    var tags = '';
+                                    $.each(value.tagsName, function (index, value) {
+                                        tags = tags + value + ' ';
+                                    });
+                                    $('#friend' + index + 'Tags').html('<p>' + tags + '</p>');
+                                });
+                                $('.modalCategories').append('<div class="categoriesSection"><p>Interest Categories:</p></div>');
+                                $('.modalCategories').append('<div class="categories"><p>' + x.node.data.categories + '</p></div>');
+                    }
+                });
             } else {
                 if (x.node.data.label != "YOU" && x.node.data.label != "Your Links") {
                     $('#friendDetails').modal('show');

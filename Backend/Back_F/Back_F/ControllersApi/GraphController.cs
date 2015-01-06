@@ -124,6 +124,12 @@ namespace Back_F.ControllersApi
                 }
                     
             }
+            if (listFriendsNames.Count == 0 && friendId != "")
+            {
+                string namefriend = db.friends.Where(idx => idx.IdFriend == friendId).FirstOrDefault().FullName;
+                string name = (namefriend == "") ? db.friends.Where(idx => idx.IdFriend == friendId).FirstOrDefault().UserName : namefriend;
+                listFriendsNames.Add(name);
+            }
             listRet.friends = listFriendsNames.Distinct().ToList();
             return listRet;
         }
@@ -160,6 +166,56 @@ namespace Back_F.ControllersApi
            }
             return obRet;
         }
+
+        [POST("api/GetCategoryUserDetails")]
+        public List<Models.Friends.DetailedCategoryRet> categoryUserDetails(Models.Friends.DetailedCategory ob)
+        {
+            string userId = ob.friends.ToString().Split(',')[0];
+            string friend = ob.friends.ToString().Split(',')[1];
+            int idCat = 0;
+            string[] arrayCat = ob.catName.Split(',');
+            List<Models.Friends.DetailedCategoryRet> obRet = new List<Models.Friends.DetailedCategoryRet>();
+
+            List<string> tags = new List<string>();
+            var itemFriend = db.friends.Where(id => id.IdFriend == friend).First();
+            Models.Friends.DetailedCategoryRet obF = new Models.Friends.DetailedCategoryRet();
+            obF.friendName = (itemFriend.FullName == "") ? itemFriend.UserName : itemFriend.FullName; obF.friendPhoto = itemFriend.PhotoUrl;
+            for (int x = 0; x < arrayCat.Length; x++)
+            {
+                string cat = arrayCat[x];
+                idCat = db.categories.Where(c => c.Category1 == cat).First().Id;
+                var tagsList = db.linkfriendcategories.Where(link => link.IdCategory == idCat && link.IdFriend == friend);
+                List<PhotoCollection> photoColl = new List<PhotoCollection>();
+                foreach (var item in tagsList)
+                {
+                    tags.Add(item.Tag);
+                }
+            }
+            obF.tagsName = tags.Distinct().ToList();
+            obRet.Add(obF);
+
+            var itemUser = db.users.Where(id => id.UserId== userId).First();
+            obF = new Models.Friends.DetailedCategoryRet();
+            obF.friendName = (itemUser.Full_Name == "") ? itemUser.UserName : itemUser.Full_Name; obF.friendPhoto = "images/me.png";
+            tags = new List<string>();
+            for (int x = 0; x < arrayCat.Length; x++)
+            {
+                string cat = arrayCat[x];
+                idCat = db.categories.Where(c => c.Category1 == cat).First().Id;
+                var tagsList = db.linkusercategories.Where(link => link.Category== idCat && link.UserId == userId);
+                List<PhotoCollection> photoColl = new List<PhotoCollection>();
+                
+                foreach (var item in tagsList)
+                {
+                    tags.Add(item.Tag);
+                }
+            }
+            obF.tagsName = tags.Distinct().ToList();
+            obRet.Add(obF);
+
+            return obRet;
+        }
+
         [HttpPost]
         [POST("api/CommonPictures")]
         public List<Models.Friends.DetailedCategoryRet> GetCommonPicture(Models.Friends.DetailedCategory ob)
@@ -217,23 +273,24 @@ namespace Back_F.ControllersApi
             return obRet;
         }
         [HttpGet]
-        [POST("api/GetBestBundles/{id,id1}")]
-        public List<Models.Friends.DetailedCategoryRet> BestBundles(string id,string id1)
+        [GET("api/GetBestBundles/")]
+        public List<Models.Friends.DetailedCategoryRet> BestBundles()
         {
-            var friends = db.friends.ToList();
-            List<string[]> link = new List<string[]>();
-            var comments1 = (from e1 in db.commentsusers where
-                           e1.UserId == id
-                                select e1).ToList();
-            var comments2 = (from e1 in db.commentsusers
-                            where
-                                e1.UserId == id1
-                            select e1).ToList();
-            foreach(var item in comments1){
+            //var friends = db.friends.ToList();
+            //List<string[]> link = new List<string[]>();
+            //var comments1 = (from e1 in db.commentsusers where
+            //               e1.UserId == id
+            //                    select e1).ToList();
+            //var comments2 = (from e1 in db.commentsusers
+            //                where
+            //                    e1.UserId == id1
+            //                select e1).ToList();
+            //foreach(var item in comments1){
                    
 
-            }
-
+            //}
+            Flickr f =  Models.FlickrManager.GetInstance();
+            var photos = f.PeopleGetPublicPhotos("115663388@N03");
             return null;
         }
     }
