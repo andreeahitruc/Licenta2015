@@ -17,8 +17,9 @@ namespace UpdateApplication
         {
             Console.WriteLine("Start looking for users...");
             Program ob = new Program();
-            ob.UpdateFriends();
-            ob.UpdateFriendsTags();
+            ob.UpdateComments();
+            //ob.UpdateFriends();
+            //ob.UpdateFriendsTags();
             Console.ReadKey();
         }
         public static Flickr GetInstance()
@@ -76,6 +77,7 @@ namespace UpdateApplication
                                 };
                                 db.usertags.Add(utag);
                             };
+                            db.SaveChanges();
                             foreach (var tagItem in tagsUser)//select all tags from the list for iterated friend
                             {
                                 var result = (from wordP in db.words
@@ -92,6 +94,7 @@ namespace UpdateApplication
                                     db.linkusercategories.Add(catLink);
                                 }
                             }
+                            db.SaveChanges(); 
                         }
                         Dictionary<string, List<string>> tagsList = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
                         foreach (var user in friends)
@@ -148,6 +151,72 @@ namespace UpdateApplication
                 }
             }
         }
+        public bool UpdateComments()
+        {
+            flickr_tablesEntities1 dbo = new flickr_tablesEntities1();
+            int contor = 0;
+            try {
+                var friends = dbo.friends.ToList();
+                var users = dbo.users.ToList();
+                Flickr f = GetInstance();
+                var commentsAll = dbo.commentsusers.ToList();
+                foreach (var item in commentsAll)
+                {
+                    dbo.commentsusers.Remove(item);
+                }
+                dbo.SaveChanges();
+
+                Console.WriteLine("All cleared");
+                foreach (var item in friends)
+                {
+                    Console.WriteLine("Added "+ contor+" friend");
+                    FlickrNet.PhotoCollection items = f.PeopleGetPublicPhotos(item.IdFriend);
+                    foreach (var itemx in items)
+                    {
+                        FlickrNet.PhotoCommentCollection comments = f.PhotosCommentsGetList(itemx.PhotoId);
+                        foreach (var comm in comments)
+                        {
+                            
+                            commentsuser commu = new commentsuser() { 
+                                CommentatorId = comm.AuthorUserId,
+                                Comment = comm.AuthorRealName,
+                                PhotoId = itemx.PhotoId,
+                                UserId = item.IdFriend
+                            };
+                            dbo.commentsusers.Add(commu);
+                        }
+                    }
+                    contor++;
+                }
+                foreach (var item in users)
+                {
+                    Console.WriteLine("Added " + contor + " friend");
+                    FlickrNet.PhotoCollection items = f.PeopleGetPublicPhotos(item.UserId);
+                    foreach (var itemx in items)
+                    {
+                        FlickrNet.PhotoCommentCollection comments = f.PhotosCommentsGetList(itemx.PhotoId);
+                        foreach (var comm in comments)
+                        {
+
+                            commentsuser commu = new commentsuser()
+                            {
+                                CommentatorId = comm.AuthorUserId,
+                                Comment = comm.AuthorRealName,
+                                PhotoId = itemx.PhotoId,
+                                UserId = item.UserId
+                            };
+                            dbo.commentsusers.Add(commu);
+                            dbo.SaveChanges();
+                        }
+                    }
+                    contor++;
+                }
+                dbo.SaveChanges();
+                Console.WriteLine("Data saved...");
+            }
+            catch (Exception) { }
+            return true;
+        }
         public bool UpdateFriends()
         {
             using (flickr_tablesEntities1 db = new flickr_tablesEntities1())
@@ -195,8 +264,13 @@ namespace UpdateApplication
                             };
                             try
                             {
-                                db.friends.Add(fr);
+                                if (db.friends.Where(a => a.IdFriend == fr.IdFriend).Count() == 0)
+                                {
+                                    db.friends.Add(fr);
+                                    db.SaveChanges();
+                                }
                                 db.linkfriends.Add(link);
+                                db.SaveChanges();
                                 Console.WriteLine("Saving friends:");
                                 if (contor >= count / 4)
                                     Console.Write("---25%---");
@@ -213,9 +287,9 @@ namespace UpdateApplication
 
                             }
                         }
-                        db.SaveChanges();
-                        Console.WriteLine("Update friends complete...");
+                        
                     }
+                    Console.WriteLine("Update friends complete...");
                     return true;
                 }
                 catch (Exception) { return false; }

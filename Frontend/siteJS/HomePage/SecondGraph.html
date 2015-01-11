@@ -8,15 +8,14 @@
 <script src="../js/arbor.js"></script>
 <script src="../js/graphics.js"></script>
 <script src="../js/renderer.js"></script>
-<script src="js/graphFunctions.js"></script>
-<script src="js/graphRedraw.js"></script>
+<script src="js/SecondGraphFunctions.js"></script>
+<script src="js/SecondgraphRedraw.js"></script>
 <div>
-    <div style="border-bottom: 2px solid red; width: 300px; height: 20px;" id="goodBun" hidden></div>
-    <div style="border-bottom: 2px solid green; width: 300px; height: 20px;" id="strongBun" hidden></div>
-    <div style="border-bottom: 2px solid blue;width:300px; height: 20px;" id="frBun" hidden></div>
+    <div style="border-bottom: 2px solid red; width: 300px; height: 20px;" id="goodBun" hidden>Loading links...</div>
 </div>
 <div class="graphDiv">
-    <canvas id="viewport" width="1000" height="600"></canvas>
+    <div style="display:inline-block;vertical-align:top" class="links"></div>
+    <div style="display: inline-block; vertical-align: top"><canvas id="viewport" width="1000" height="600"></canvas></div>
 </div>
 <!--Modal-->
 
@@ -28,7 +27,7 @@
                     <a href="#"></a>
                     <h3 class="modalFriendName"></h3>
                     <div>
-                        <img src="#" class="modalFriendImage"/>
+                        <img src="#" class="modalFriendImage" />
                     </div>
                     <div class="modalCategories"></div>
                 </div>
@@ -37,8 +36,7 @@
         </div>
     </div>
 </div><!--Modal -->
-<div><a href="#" id="links">View Links</a></div>
-<div><a href="SecondGraph.html">Comments Links</a></div>
+<div><a href="Graph.html">Back</a></div>
 <div><a href="index.html">Homepage</a></div>
 <div id="hiddenFriends" hidden></div>
 <div id="show"></div>

@@ -3,7 +3,7 @@ var sys = arbor.ParticleSystem(4000, 400, 0.9);
 sys.screenSize(1000, 600)
 sys.screenPadding(80)
 var selectedEdge = selectedNode = prevNode = prevColor = null;
-var numAdded = 0; var canvas, ctx; var image; var images = []; var finish = false; var friendsLinkObj; var arrayLinks = []; var goodBundles = []; var strongBundles = [];
+var numAdded = 0; var canvas, ctx; var image; var images = []; var finish = false; var friendsLinkObj; var arrayLinks = [];
 setTimeout(function () {
  
 }, 200)
@@ -72,8 +72,6 @@ $(document).ready(function (e) {
                     $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links    ' + Math.round(procentOrange) + '%</p>');
                     $('#goodBun').show();
                     $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links    ' + Math.round(procentRed) + '%</p>');
-
-                   
                 }, 1000);
             }
         });
@@ -104,16 +102,6 @@ function addEdgeNew(sys, u, v, catName) {
             if ((($.inArray(test, arrayLinks) > -1) || ($.inArray(testInv, arrayLinks) > -1)) && v[x] != u) {
                 var node = sys.getNode(test);
                 if (node != null) {
-                    var itemIns = u + '+' + v[x];
-                    //prepare array for comments section
-                    if ($.inArray(itemIns, strongBundles) <= -1)
-                        strongBundles.push(itemIns);
-                    localStorage['array'] = strongBundles;
-                    //var indexRM = goodBundles.indexOf(test);
-                    //if (indexRM  > -1) {
-                    //    goodBundles = goodBundles.splice(indexRM, 1);
-                    //}
-                        //end
                     var LinkNode1 = sys.getNode(test.split(',')[0]);
                     var LinkNode2 = sys.getNode(test.split(',')[1]);
                     var edge1 = sys.getEdges(node, LinkNode1);
@@ -151,7 +139,6 @@ $(document).ready(function () {
         //var nodeAddress = "https://www.google.ro/" + selected.node.name;
         if (x.distance < 20) {
             console.log(x.node.data.label);// get friend details
-            if (x.node.data.linkNode == "true") {
                 $('.modalCategories').html('');
                 var ob = {
                     catName: x.node.data.categories,
@@ -184,113 +171,7 @@ $(document).ready(function () {
                                 $('.modalCategories').append('<div class="categories"><p>' + x.node.data.categories + '</p></div>');
                     }
                 });
-            } else {
-                if (x.node.data.label != "YOU" && x.node.data.label != "Your Links") {
-                    $('#friendDetails').modal('show');
-                    $('.modalFriendImage').attr('src', x.node.data.color);
-                    $('.modalFriendName').html(x.node.data.label);
-                    if (x.node.data.size == 0) {
-                        $.ajax({
-                            type: 'GET',
-                            url: apiBaseURL + '/GetUserLinks/' + x.node.data.shape + '/' + readCookie('UserProfile')[0],
-                            dataType: 'json',
-                            success: function (data) {
-                                $('.modalCategories').html('');
-                                $.each(Object.keys(data), function (index, value) {
-                                    if (value == "tags") {
-                                        $('.modalCategories').append('<div class="container">' +
-                                            '<div class="leftBar ' + value + '">' + value + '</div><br/>' +
-                                            '<div class="rightBar ' + value + '"></div>' +
-                                            '</div>');
-                                        $('.leftBar.' + value).html('INTERESTS: ');
-                                        var tags = "";
-                                        for (var i = 0; i <= data[value].length - 1; i++) {
-                                            if (i == data[value].length - 1)
-                                            { tags = tags + data[value][i] } else
-                                                tags = tags + data[value][i] + ', '
-                                        }
-                                        $('.rightBar.' + value).html(tags);
-                                    }
-                                    if (value == "categories") {
-                                        $('.modalCategories').append('<div class="container">' +
-                                           '<div class="nameCategCon"></div><br/>' +
-                                           '<div class="allcategories"></div>' +
-                                           '</div>');
-                                        $('.nameCategCon').html("ASSOCIATED CATEGORIES: ");
-                                        var catgs = "";
-                                        for (var i = 0; i <= data[value].length - 1; i++) {
-                                            if (i == data[value].length - 1)
-                                            { catgs = catgs + data[value][i] } else
-                                                catgs = catgs + data[value][i] + ', '
-                                        }
-                                        $('.allcategories').html(catgs);
-                                    }
-                                    if (value == "friends") {
-                                        $('.modalCategories').append('<div class="container">' +
-                                            '<div class="leftBar ' + value + '">' + value + '</div><br/>' +
-                                            '<div class="rightBar ' + value + '"></div>' +
-                                            '</div>');
-                                        $('.leftBar.' + value).html('LINKED INTERESTS: ');
-                                        var fr = "";
-                                        for (var i = 0; i <= data[value].length - 1; i++) {
-                                            if (i == data[value].length - 1)
-                                            { fr = fr + data[value][i] } else
-                                                fr = fr + data[value][i] + ', '
-                                        }
-                                        $('.rightBar.' + value).html(fr);
-                                    }
-                                });
-                            }
-                        });
-                    } else {
-                        $('.modalCategories').html('');
-                        var ob = {
-                            catName: x.node.data.categories,
-                            friends: x.node.data.friends
-                        }
-                        $.ajax({
-                            type: 'POST',
-                            url: apiBaseURL + '/GetCategoryDetails/',
-                            dataType: 'json',
-                            data: ob,
-                            success: function (data) {
-                                //$('.modalCategories').append('<table>');
-                                var html = '<div style="height:20px;"></div><table id="categoryTable"><tr><td id="friend0Name" align="center"></td><td></td><td id="friend1Name" align="center"></td></tr>' +
-                                                   '<tr><td id="friend0Img" align="center"></td><td align="center"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-link-128.png" style="height:60px"; width:70px;></img></td><td id="friend1Img" align="center"></td></tr>' +
-                                                   '<tr><td id="friend0Tags" align="center"></td><td align="center"></td><td id="friend1Tags" align="center"></td></tr>';
-                                $('.modalCategories').append(html);
-                                //  $('.modalCategories').append('<img src="../img/loading.gif" class="loadingImageModal" /> Retreving the common images...');
-                                //  $('.modalCategories').append('<div id="commonImages"></div>');
-                                $.each(data, function (index, value) {
-                                    $('#friend' + index + 'Name').html('<p>' + value.friendName + '</p>');
-                                    $('#friend' + index + 'Img').html('<img src="' + value.friendPhoto + '" style="height:40px;width:40px;border-radius:50%" />');
-                                    var tags = '';
-                                    $.each(value.tagsName, function (index, value) {
-                                        tags = tags + value + ' ';
-                                    });
-                                    $('#friend' + index + 'Tags').html('<p>' + tags + '</p>');
-                                });
-                                $('.modalCategories').append('<div class="categoriesSection"><p>Interest Categories:</p></div>');
-                                $('.modalCategories').append('<div class="categories"><p>' + x.node.data.categories + '</p></div>');
-
-                                //$.ajax({//get common pictures
-                                //    type: 'POST',
-                                //    url: apiBaseURL + '/CommonPictures/',
-                                //    dataType: 'json',
-                                //    data: ob,
-                                //    success: function (data) {
-                                //        $.each(data, function (index, value) {
-                                //            $.each(value.photos, function (indexNew, valueNew) {
-                                //                $('#commonImages').append('<img src="' + valueNew[0].Medium640Url + '" style="width:100px;height:100px;"></img>');
-                                //            })
-                                //        })
-                                //        $('.loadingImageModal').hide();
-                                //    }
-                                //});
-                            }
-                        });
-                    }
-                }
+           
             }
    
          

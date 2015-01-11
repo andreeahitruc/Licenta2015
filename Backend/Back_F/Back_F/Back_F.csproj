@@ -177,6 +177,7 @@
     <Compile Include="ControllersApi\FlickrAuthController.cs" />
     <Compile Include="ControllersApi\FriendsController.cs" />
     <Compile Include="ControllersApi\GraphController.cs" />
+    <Compile Include="ControllersApi\SecondGraphController.cs" />
     <Compile Include="friend.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -213,14 +214,18 @@
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\Authentification.cs" />
     <Compile Include="Models\AuthOb.cs" />
+    <Compile Include="Models\CommentDetails.cs" />
     <Compile Include="Models\CreateGraph.cs" />
     <Compile Include="Models\FlickrManager.cs" />
+    <Compile Include="Models\Friends\CommentsLinking.cs" />
     <Compile Include="Models\Friends\DetailedCategory.cs" />
     <Compile Include="Models\Friends\DetailedCategoryRet.cs" />
     <Compile Include="Models\Friends\DetailedLink.cs" />
+    <Compile Include="Models\LinksToShow.cs" />
     <Compile Include="Models\LinkUserFriendGraph.cs" />
     <Compile Include="Models\ListOfFriends.cs" />
     <Compile Include="Models\SaveImageFromUrl.cs" />
+    <Compile Include="Models\SecondLinks.cs" />
     <Compile Include="Models\StringTool.cs" />
     <Compile Include="Models\UpdateComments.cs" />
     <Compile Include="Models\UrlHelper.cs" />
