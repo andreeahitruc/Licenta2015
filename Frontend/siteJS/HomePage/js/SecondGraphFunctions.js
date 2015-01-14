@@ -4,6 +4,7 @@ sys.screenSize(1000, 600)
 sys.screenPadding(80)
 var selectedEdge = selectedNode = prevNode = prevColor = null;
 var numAdded = 0; var canvas, ctx; var image; var images = []; var finish = false; var friendsLinkObj; var arrayLinks = []; var array = localStorage['array'];
+var arrayStrongBundles = []; var goldenLinks = 0;
 $(document).ready(function (e) {
 
     try {
@@ -38,10 +39,12 @@ $(document).ready(function (e) {
         data:LinksToShow,
         success: function (data) {
             $.each(data, function (index, value) {
-                $('.links').append('<ul class="ul'+index+'"></ul>')
+                var val = value[0].id + ',' + value[1].id;
+                arrayStrongBundles.push(val);
+                $('.links').append('<ul class="ul'+index+'" style="border:1px solid green"></ul>')
                 $.each(value, function (index2, value2) {
-                    $('.ul' + index).append('<li style="display:inline-block"><img src="' + value2.image + '" style="border-radius:50%;width:50px;height:50px;"/><br/>' + value2.name + '</li>');
-                    if (index2 == 0) $('.ul' + index).append('<li style="display:inline-block">---strong---</li>');
+                    $('.ul' + index).append('<li style="display:inline-block"><img src="' + value2.image + '" style="border-radius:50%;width:30px;height:30px;"/><br/>' + value2.name + '</li>');
+                    if (index2 == 0) $('.ul' + index).append('<li style="display:inline-block; color:green">&nbsp&nbsp;&nbsp;with&nbsp;&nbsp;&nbsp;</li>');
                 });
             });
         }
@@ -90,6 +93,25 @@ function addEdgeNew(sys, u, v, catName) {
                     sys.addEdge(intNode, u, { color: 'red', label: catName });
                     sys.addEdge(intNode, v[x], { color: 'red', label: catName });
                     //var edge = sys.addEdge(u, v[x], { color: 'red', label: label + ", " + catName });
+                    var indexInArray = arrayStrongBundles.indexOf(test) 
+                    if (indexInArray > 0)
+                    {
+                        if ($('#super').length > 0) {
+                            $('#super').remove();
+                        }
+                        var html = '<ul class="ul'+indexInArray+'">'+$('.ul' + indexInArray).html()+"</ul>";
+                        $('.ul' + indexInArray).remove();
+                        $('.links').prepend(html);
+                        //$('.links').prepend('<p id="super" style="font-size:20px; color:red">Super bundles<p>');
+                        $('.ul' + indexInArray).css({ 'border': '2px solid  #FFD700' });
+                        goldenLinks++;
+                        if ($('#goldenWrite').length > 0)
+                            $('#goldenWrite').remove();
+                        if(goldenLinks > 1)
+                            $('.links').prepend('<p style="color:red; font-size:15px; id="goldenWrite" ">' + goldenLinks + ' golden links.</p>');
+                        else
+                            $('.links').prepend('<p style="color:red; font-size:15px; id="goldenWrite" ">' + goldenLinks + ' golden link.</p>');
+                    }
                 }
             }
         }

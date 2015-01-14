@@ -66,6 +66,7 @@ namespace Back_F.ControllersApi
                         var item = db.friends.Where(idx => idx.IdFriend == id).FirstOrDefault();
                         Models.FriendType obF = new Models.FriendType();
                         obF.image = item.PhotoUrl; obF.name = (item.FullName == "") ? item.UserName : item.FullName;
+                        obF.id = item.IdFriend;
                         SecLink.Add(obF);
                     }
                     obRet.Add(SecLink);
