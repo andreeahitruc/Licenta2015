@@ -75,13 +75,13 @@
                     }
                 });
                 $('.list').html("");
-                var table = '<table><th>Your friends</th><tr>'//</table>
+                var table = '<table><tr>'//</table>
                 var contor = 0;
                 $.each(data, function (index, value) {
                     if (contor % 3 == 0) {
-                        table = table + '</tr><tr><td><div class="friendTab"><a href="' + "https://secure.flickr.com/photos/" + data[index]["UserId"] + '" class="linkFriend" target="_blank"><img src="' + data[index]["PathAlias"] + '"></img></a><p class="friendName">' + data[index]["UserName"] + '</p><p class="descriptionText">' + data[index]["IconServer"] + '</p></div></td><td style="width:3px;"><td>';
+                        table = table + '</tr><tr><td><div class="friendTab"><a href="' + "https://secure.flickr.com/photos/" + data[index]["UserId"] + '" class="linkFriend" target="_blank"><img src="' + data[index]["PathAlias"] + '"></img></a><p class="friendName">' + data[index]["UserName"] + '</p></div></td><td style="width:3px;"><td>';
                     } else {
-                        table = table + '<td><div class="friendTab"><a href="' + "https://secure.flickr.com/photos/" + data[index]["UserId"] + '" class="linkFriend" target="_blank"><img src="' + data[index]["PathAlias"] + '"></img></a><p class="friendName">' + data[index]["UserName"] + '</p><p class="descriptionText">' + data[index]["IconServer"] + '</p></div></td><td style="width:3px;"><td>';
+                        table = table + '<td><div class="friendTab"><a href="' + "https://secure.flickr.com/photos/" + data[index]["UserId"] + '" class="linkFriend" target="_blank"><img src="' + data[index]["PathAlias"] + '"></img></a><p class="friendName">' + data[index]["UserName"] + '</p></div></td><td style="width:3px;"><td>';
                     }
                     contor++;
                     //table = table + '<tr><td><img src="' + data[index]["PathAlias"] + '"></img></td><td>' + data[index]["UserName"] + '</td></tr>';
