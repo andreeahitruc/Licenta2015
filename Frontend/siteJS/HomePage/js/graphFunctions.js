@@ -37,6 +37,7 @@ $(document).ready(function (e) {
        // var friend = 1;
         // recursive(friend);
         $(this).hide();
+        $('.links').css('display','none');
         $.ajax({
             type: 'GET',
             url: apiBaseURL + '/DrawLinks/' + readCookie('UserProfile')[0],
@@ -66,12 +67,15 @@ $(document).ready(function (e) {
                     var procentRedApplied = Math.round(procentRed) * 8;
                     var procentOrange = contor * (categoriesC / 100);
                     var procentOrApplied = Math.round(procentOrange) * 8;
-                    $('#frBun').show();
+                    // $('#frBun').show();
+                    $('#frBun').css('display','inline-block');
                     $('#frBun').html('<p>Friendship bundles:' + ' ' + contor + ' links</p>');
-                    $('#strongBun').show();
-                    $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links    ' + Math.round(procentOrange) + '%</p>');
-                    $('#goodBun').show();
-                    $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links    ' + Math.round(procentRed) + '%</p>');
+                    // $('#strongBun').show();
+                    $('#strongBun').css('display','inline-block');
+                    $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links</p>');
+                    // $('#goodBun').show();
+                    $('#goodBun').css('display','inline-block');
+                    $('#goodBun').html('<p>Good bundles:' + ' ' + categoriesS + ' links</p>');
 
                    
                 }, 1000);
@@ -180,8 +184,19 @@ $(document).ready(function () {
                                     });
                                     $('#friend' + index + 'Tags').html('<p>' + tags + '</p>');
                                 });
+                                var categories = x.node.data.categories;
+                                var categoriesArray =[];
+                                var newCategory = "";
+                                categoriesArray = categories.split(',');
+                                for(var i=0;i< categoriesArray.length;i++)
+                                {
+                                    if(i != categoriesArray.length -1)
+                                    newCategory = newCategory + categoriesArray[i]+', ';
+                                    else
+                                        newCategory = newCategory + categoriesArray[i];
+                                }
                                 $('.modalCategories').append('<div class="categoriesSection"><p>Interest Categories:</p></div>');
-                                $('.modalCategories').append('<div class="categories"><p>' + x.node.data.categories + '</p></div>');
+                                $('.modalCategories').append('<div class="categories"><p>' + newCategory + '</p></div>');
                     }
                 });
             } else {
@@ -270,8 +285,19 @@ $(document).ready(function () {
                                     });
                                     $('#friend' + index + 'Tags').html('<p>' + tags + '</p>');
                                 });
+                                var categories = x.node.data.categories;
+                                var categoriesArray =[];
+                                var newCategory = "";
+                                categoriesArray = categories.split(',');
+                                for(var i=0;i< categoriesArray.length;i++)
+                                {
+                                    if(i != categoriesArray.length -1)
+                                    newCategory = newCategory + categoriesArray[i]+', ';
+                                    else
+                                        newCategory = newCategory + categoriesArray[i];
+                                }
                                 $('.modalCategories').append('<div class="categoriesSection"><p>Interest Categories:</p></div>');
-                                $('.modalCategories').append('<div class="categories"><p>' + x.node.data.categories + '</p></div>');
+                                $('.modalCategories').append('<div class="categories"><p>' + newCategory + '</p></div>');
 
                                 //$.ajax({//get common pictures
                                 //    type: 'POST',
@@ -303,4 +329,3 @@ $(document).ready(function () {
     $("#viewport").dblclick(nodepressed);
    
 })
-

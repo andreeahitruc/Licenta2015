@@ -57,7 +57,7 @@ var Renderer = function (canvas) {
                             ctx.lineTo(pt2.x, pt2.y)
                             if (finish) {
                                 ctx.fillStyle = 'blue';
-                                ctx.font = 'italic 12px sans-serif';
+                                ctx.font = '12px Lato';
                                 ctx.textBaseline = 'top';
                                 measure = ctx.measureText(label);
                                 ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
@@ -75,7 +75,7 @@ var Renderer = function (canvas) {
                         ctx.lineTo(pt2.x, pt2.y)
                         if (finish) {
                             ctx.fillStyle = 'green';
-                            ctx.font = 'italic 12px sans-serif';
+                            ctx.font = '12px Lato';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
                             ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
@@ -84,18 +84,18 @@ var Renderer = function (canvas) {
                     }
                     }
             })
-
+//DESENARE NODURI
             particleSystem.eachNode(function (node, pt) {
                 // node: {mass:#, p:{x,y}, name:"", data:{}}
                 // pt:   {x:#, y:#}  node position in screen coords
                 var w = 40, label = node.data.label, measure, image = new Image();
-                if (node.name != "you") {
+                if (node.name != "you") { //DACA NU SUNT USER
                     if (node.name == readCookie('UserProfile')[0])
                     {
                         image.src = "images/me.png";
                         ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2);
-                        ctx.fillStyle = 'red';
-                        ctx.font = 'italic 16px sans-serif';
+                        ctx.fillStyle = '#bd1f2d';
+                        ctx.font = '16px Lato';
                         ctx.textBaseline = 'top';
                         measure = ctx.measureText(label);
                         ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
@@ -104,16 +104,16 @@ var Renderer = function (canvas) {
                         if (node.data.size == 1) {
                             image.src = node.data.color;
                             ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 20, 20);
-                            ctx.fillStyle = 'black';
-                            ctx.font = 'italic 14px sans-serif';
+                            ctx.fillStyle = '#2c3e50';
+                            ctx.font = '14px Lato';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
                             ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
                         } else {
                             image.src = node.data.color;
                             ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 40, 40);
-                            ctx.fillStyle = 'black';
-                            ctx.font = 'italic 14px sans-serif';
+                            ctx.fillStyle = '#2c3e50';
+                            ctx.font = '14px Lato';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
                             ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
@@ -122,8 +122,8 @@ var Renderer = function (canvas) {
                 } else {
                     image.src = "images/me.png";
                     ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2);
-                    ctx.fillStyle = 'red';
-                    ctx.font = 'italic 16px sans-serif';
+                    ctx.fillStyle = '#bd1f2d';
+                    ctx.font = '16px Lato';
                     ctx.textBaseline = 'top';
                     measure = ctx.measureText(label);
                     ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);

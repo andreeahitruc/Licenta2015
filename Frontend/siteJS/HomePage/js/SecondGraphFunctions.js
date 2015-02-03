@@ -41,7 +41,7 @@ $(document).ready(function (e) {
             $.each(data, function (index, value) {
                 var val = value[0].id + ',' + value[1].id;
                 arrayStrongBundles.push(val);
-                $('.links').append('<ul class="ul'+index+'" style="border:1px solid green"></ul>')
+                $('.links').append('<ul class="ul'+index+'" style="border:1px solid green; padding:5px"></ul>')
                 $.each(value, function (index2, value2) {
                     $('.ul' + index).append('<li style="display:inline-block"><img src="' + value2.image + '" style="border-radius:50%;width:30px;height:30px;"/><br/>' + value2.name + '</li>');
                     if (index2 == 0) $('.ul' + index).append('<li style="display:inline-block; color:green">&nbsp&nbsp;&nbsp;with&nbsp;&nbsp;&nbsp;</li>');
@@ -108,9 +108,9 @@ function addEdgeNew(sys, u, v, catName) {
                         if ($('#goldenWrite').length > 0)
                             $('#goldenWrite').remove();
                         if(goldenLinks > 1)
-                            $('.links').prepend('<p style="color:red; font-size:15px; id="goldenWrite" ">' + goldenLinks + ' golden links.</p>');
+                            $('.links').prepend('<p style="color:#bd1f2d; font-family:Lato; font-size:15px; id="goldenWrite" ">' + goldenLinks + ' Golden links.</p>');
                         else
-                            $('.links').prepend('<p style="color:red; font-size:15px; id="goldenWrite" ">' + goldenLinks + ' golden link.</p>');
+                            $('.links').prepend('<p style="color:#bd1f2d; font-family:Lato; font-size:15px; id="goldenWrite" ">' + goldenLinks + ' Golden link.</p>');
                     }
                 }
             }

@@ -31,12 +31,12 @@ namespace Back_F.ControllersApi
                                   select t).FirstOrDefault();
                 }
                 catch (Exception) { ob = null; }
-                if (ob == null)
+                if (ob == null)//inseamna ca nu am prietenii inca adaugati in DB
                 {
                     if (Models.User.FlickerObj.UserFl.ContainsKey(userId))
                     {
                         Flickr f = Models.User.FlickerObj.UserFl[userId];
-                        FlickrNet.ContactCollection friends = f.ContactsGetPublicList(userId);
+                        FlickrNet.ContactCollection friends = f.ContactsGetPublicList(userId);//preiau din FLICKR
                         string realName = "";string description = "";
                         foreach (var item in friends)
                         {
@@ -51,7 +51,7 @@ namespace Back_F.ControllersApi
                                 description = person.Description;
 
                             item.PathAlias = item.BuddyIconUrl;
-                            friend fr = new friend
+                            friend fr = new friend //adaug in DB
                             {
 
                                 FullName = realName,
@@ -79,11 +79,11 @@ namespace Back_F.ControllersApi
                         Models.ListOfFriends.coll = friends;
                         return friends;
                     }
-                    else
+                    else //inseamna ca exista prieteni
                     {
                         ContactCollection coll = new ContactCollection();
                         Contact con = new Contact();
-                        var friends = db.linkfriends.Where(idx => idx.IdUser == userId).ToList();
+                        var friends = db.linkfriends.Where(idx => idx.IdUser == userId).ToList();//preiau din DB
                         foreach (var item in friends)
                         {
                             var people = db.friends.Where(idx => idx.IdFriend == item.IdFriend).FirstOrDefault();
@@ -164,14 +164,16 @@ namespace Back_F.ControllersApi
                     List<string> tags = new List<string>();
                     List<string> tagsUser = new List<string>();
                     Dictionary<string, List<string>> tagsList = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
+                    //preiau taguri user
                     tagsUser = f.TagsGetListUser(userId).GroupBy(x => x.TagName).OrderByDescending(g => g.Count()).Take(10).Select(gg => gg.Key).ToList();
+                    //pentru fiecare prieten preiau primele 10 taguri si le stochez in DB
                     foreach (var user in listFriends)
                     {
                         tags = f.TagsGetListUser(user.IdFriend).GroupBy(x => x.TagName).OrderByDescending(g => g.Count()).Take(10).Select(gg => gg.Key).ToList();
-                        tagsList.Add(user.IdFriend, tags);
+                        tagsList.Add(user.IdFriend, tags);//adaugare in lista
                         foreach(string tafg in tags)
                         {
-                            friendtag ftag = new friendtag()
+                            friendtag ftag = new friendtag() //stocare in DB
                             {
                                 FriendId = user.IdFriend,
                                 Tag = tafg,
@@ -182,7 +184,7 @@ namespace Back_F.ControllersApi
                     }
                     foreach (string tagU in tagsUser)
                     {
-                        usertag utag = new usertag()
+                        usertag utag = new usertag()//adaug taguri USER in DB
                         {
                             UserId = userId,
                             Tag = tagU
@@ -192,13 +194,13 @@ namespace Back_F.ControllersApi
                     db.SaveChanges();
 
                     try {
-                        foreach (var item in tagsList)//select list of tags foreach firends
+                        foreach (var item in tagsList)//parcurg dictionarul cu taguri
                         {
-                            foreach (var tagItem in item.Value)//selcet all tags from the list for iterated friend
+                            foreach (var tagItem in item.Value)//parcurg fiecare lista a userului curent
                             {
                                 var result = (from wordP in db.words
                                              where wordP.Word1 == tagItem
-                                             select wordP).ToList();//check if for the iterated friend we have some tags like in ourdatabase
+                                             select wordP).ToList();//verificam daca tagul curent se afla intr-o categorie
                                 {
                                     foreach (var itemRes in result)//check the above result...if Yes then we add the friend to the specific category of tags
                                     {

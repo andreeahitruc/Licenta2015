@@ -58,13 +58,13 @@
             url: apiBaseURL + '/GetFriends/' + idUser,//get all friends
             dataType: 'json',
             success: function (data) {
-                $.ajax({
-                    type: 'GET',
-                    url: apiBaseURL + '/GetBestBundles/',
-                    dataType: 'json',
-                    success: function (data) {
-                    }
-                });
+                //$.ajax({
+               //     type: 'GET',
+               //     url: apiBaseURL + '/GetBestBundles/',
+                //dataType: 'json',
+                //                  success: function (data) {
+                //                }
+                //          });
                 
                 $.ajax({
                     type: 'GET',

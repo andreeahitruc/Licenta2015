@@ -50,14 +50,14 @@ var Renderer = function (canvas) {
                 } else {
                     if (edge.source.data.categories != null || edge.target.data.categories != null) {
                         if ($.inArray(',', edge.source.data.categories) <= -1 || $.inArray(',', edge.target.data.categories) <= -1) {
-                            ctx.strokeStyle = "rgba(215, 40, 40, 30);"
+                            ctx.strokeStyle = "purple"
                             ctx.lineWidth = (1)
                             ctx.beginPath()
                             ctx.moveTo(pt1.x, pt1.y)
                             ctx.lineTo(pt2.x, pt2.y)
                             if (finish) {
                                 ctx.fillStyle = 'blue';
-                                ctx.font = 'italic 12px sans-serif';
+                                ctx.font = '12px Lato';
                                 ctx.textBaseline = 'top';
                                 measure = ctx.measureText(label);
                                 ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
@@ -75,7 +75,7 @@ var Renderer = function (canvas) {
                         ctx.lineTo(pt2.x, pt2.y)
                         if (finish) {
                             ctx.fillStyle = 'green';
-                            ctx.font = 'italic 12px sans-serif';
+                            ctx.font = '12px Lato';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
                             ctx.fillText(label, pt1.x - measure.width / 2, pt1.y + 40);
@@ -94,8 +94,8 @@ var Renderer = function (canvas) {
                     {
                         image.src = "images/me.png";
                         ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2);
-                        ctx.fillStyle = 'red';
-                        ctx.font = 'italic 16px sans-serif';
+                        ctx.fillStyle = '#bd1f2d';
+                        ctx.font = '16px Lato';
                         ctx.textBaseline = 'top';
                         measure = ctx.measureText(label);
                         ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
@@ -104,16 +104,16 @@ var Renderer = function (canvas) {
                         if (node.data.size == 1) {
                             image.src = node.data.color;
                             ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 20, 20);
-                            ctx.fillStyle = 'black';
-                            ctx.font = 'italic 14px sans-serif';
+                            ctx.fillStyle = '#2c3e50';
+                            ctx.font = '14px Lato';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
                             ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
                         } else {
                             image.src = node.data.color;
                             ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2, 40, 40);
-                            ctx.fillStyle = 'black';
-                            ctx.font = 'italic 14px sans-serif';
+                            ctx.fillStyle = '#2c3e50';
+                            ctx.font = '14px Lato';
                             ctx.textBaseline = 'top';
                             measure = ctx.measureText(label);
                             ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);
@@ -122,8 +122,8 @@ var Renderer = function (canvas) {
                 } else {
                     image.src = "images/me.png";
                     ctx.drawImage(image, pt.x - w / 2, pt.y - w / 2);
-                    ctx.fillStyle = 'red';
-                    ctx.font = 'italic 16px sans-serif';
+                    ctx.fillStyle = '#bd1f2d';
+                    ctx.font = '16px Lato';
                     ctx.textBaseline = 'top';
                     measure = ctx.measureText(label);
                     ctx.fillText(label, pt.x - measure.width / 2, pt.y + 20);

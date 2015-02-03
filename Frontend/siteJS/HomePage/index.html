@@ -5,19 +5,20 @@
 <script src="js/customFunctions.js"></script>
 <script src="../js/helper.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<div class="homepage-wrapper">
+	<span class="userName"><img src="../img/blue_bar.gif" /></span><br />
+	<button id="friends" class="btn btn-primary" style="display:none;">
+	    See friends
+	</button><br />
+	<a id="logOut">LogOut</a>
+	<h3 class="table-title">Your Friends</h3>
+	<div class="list">
+	    <img id="loading" style="height:100px;width:100px;" hidden />
 
-<span class="userName"><img src="../img/blue_bar.gif" /></span><br />
-<button id="friends" class="btn btn-primary" style="display:none;">
-    See friends
-</button><br />
-<a id="logOut" style="position: absolute; right: 30px; top: 50px;">LogOut</a>
-<h3 class="table-title">Your Friends</h3>
-<div class="list">
-    <img id="loading" style="height:100px;width:100px;" hidden />
+	</div>
 
+	<div id="graph" hidden>
+	    <a href="graph.html" style="color:#fff; font-family:Lato; font-size:12px; text-transform:uppercase; text-decoration:none">View Graph</a>
+	</div>
+	<form id="hidden-form"></form>
 </div>
-
-<div style="position:absolute;right:30px;" id="graph" hidden>
-    <a href="graph.html" style="color:#fff; font-family:Lato; font-size:12px; text-transform:uppercase; text-decoration:none">View Graph</a>
-</div>
-<form id="hidden-form"></form>

@@ -10,35 +10,42 @@
 <script src="../js/renderer.js"></script>
 <script src="js/graphFunctions.js"></script>
 <script src="js/graphRedraw.js"></script>
-<div>
-    <div style="border-bottom: 2px solid red; width: 300px; height: 20px;" id="goodBun" hidden></div>
-    <div style="border-bottom: 2px solid green; width: 300px; height: 20px;" id="strongBun" hidden></div>
-    <div style="border-bottom: 2px solid blue;width:300px; height: 20px;" id="frBun" hidden></div>
-</div>
-<div class="graphDiv">
-    <canvas id="viewport" width="1000" height="600"></canvas>
-</div>
-<!--Modal-->
-
-<div class="modal fade login_popup" id="friendDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="signup_form">
-                    <a href="#"></a>
-                    <h3 class="modalFriendName"></h3>
-                    <div>
-                        <img src="#" class="modalFriendImage"/>
-                    </div>
-                    <div class="modalCategories"></div>
-                </div>
-            </div>
-
-        </div>
+<div class="homepage-wrapper">
+    <h3 class="table-title">Your Tags Graph Friends</h3>
+    
+    <div id="hiddenFriends" hidden></div>
+    <div id="show"></div>
+    <div class="bundles-type" style="text-align:center">
+        <div style="border-bottom: 2px solid red; width: 200px; height: 20px;" id="goodBun" hidden></div>
+        <div style="border-bottom: 2px solid green; width: 200px; height: 20px;" id="strongBun" hidden></div>
+        <div style="border-bottom: 2px solid blue;width:200px; height: 20px;" id="frBun" hidden></div>
     </div>
-</div><!--Modal -->
-<div><a href="#" id="links">View Links</a></div>
-<div><a href="SecondGraph.html">Comments Links</a></div>
-<div><a href="index.html">Homepage</a></div>
-<div id="hiddenFriends" hidden></div>
-<div id="show"></div>
+    <div class="graphDiv">
+        <canvas id="viewport" width="1000" height="600"></canvas>
+    </div>
+    <!--Modal-->
+
+    <div class="modal fade login_popup" id="friendDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="signup_form">
+                        <a href="#"></a>
+                        <h3 class="modalFriendName"></h3>
+                        <div>
+                            <img src="#" class="modalFriendImage"/>
+                        </div>
+                        <div class="modalCategories"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><!--Modal -->
+    <div class="graph-page-btn-wrapper">
+        <div class="graph-page-btn links"><a href="#" id="links">View Links</a></div>
+        <div class="graph-page-btn"><a href="SecondGraph.html">Comments Links</a></div>
+        <div class="graph-page-btn"><a href="index.html">Homepage</a></div>
+    </div>
+</div>
+
