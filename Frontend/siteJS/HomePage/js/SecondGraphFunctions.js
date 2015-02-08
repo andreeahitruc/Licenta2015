@@ -41,7 +41,7 @@ $(document).ready(function (e) {
             $.each(data, function (index, value) {
                 var val = value[0].id + ',' + value[1].id;
                 arrayStrongBundles.push(val);
-                $('.links').append('<ul class="ul'+index+'" style="border:1px solid green; padding:5px"></ul>')
+                $('.links').append('<ul class="ul'+index+'" style="border:1px solid green; border-radius:3px; padding:5px"></ul>')
                 $.each(value, function (index2, value2) {
                     $('.ul' + index).append('<li style="display:inline-block"><img src="' + value2.image + '" style="border-radius:50%;width:30px;height:30px;"/><br/>' + value2.name + '</li>');
                     if (index2 == 0) $('.ul' + index).append('<li style="display:inline-block; color:green">&nbsp&nbsp;&nbsp;with&nbsp;&nbsp;&nbsp;</li>');
@@ -161,7 +161,6 @@ $(document).ready(function () {
         }
         return false;
     }
-
     $("#viewport").dblclick(nodepressed);
 
 })

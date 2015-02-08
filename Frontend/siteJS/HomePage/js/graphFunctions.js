@@ -1,4 +1,4 @@
-﻿var contor = 1;
+﻿var contor = 1; contorFriends = 0;
 var sys = arbor.ParticleSystem(4000, 400, 0.9);
 sys.screenSize(1000, 600)
 sys.screenPadding(80)
@@ -26,7 +26,7 @@ $(document).ready(function (e) {
             $.each(data, function (index, value) {
                 sys.addNode(data[index]["UserId"], { 'label': data[index]["IconFarm"], 'color': data[index]["PathAlias"], 'shape': data[index]["UserId"],size:0 });
                 images.push(data[index]["PathAlias"]);
-                contor++;
+                contor++; contorFriends++;
             });
             $.each(data, function (index, value) {
                 sys.addEdge('you', data[index]["UserId"], { color: 'blue', 'directed': true });
@@ -37,6 +37,7 @@ $(document).ready(function (e) {
        // var friend = 1;
         // recursive(friend);
         $(this).hide();
+        $('.comm-btn').css('display','inline-block');
         $('.links').css('display','none');
         $.ajax({
             type: 'GET',
@@ -53,9 +54,9 @@ $(document).ready(function (e) {
                     }
                 });
                 setTimeout(function () {
-                    var contor = 0;var categoriesS = 0; var categoriesC = 0;
+                    var contor = 0; var categoriesS = 0; var categoriesC = 0;
                     sys.eachNode(function (node, pt) {
-                        contor++;
+                       contor++;
                         if (node.data.categories != null)
                         {
                             if ($.inArray(',', node.data.categories) > -1) {
@@ -63,13 +64,13 @@ $(document).ready(function (e) {
                             } else { categoriesS++; }
                         }
                     });
-                    var procentRed = contor * (categoriesS / 100);
-                    var procentRedApplied = Math.round(procentRed) * 8;
-                    var procentOrange = contor * (categoriesC / 100);
-                    var procentOrApplied = Math.round(procentOrange) * 8;
+                    //var procentRed = contor * (categoriesS / 100);
+                    //var procentRedApplied = Math.round(procentRed) * 8;
+                    //var procentOrange = contor * (categoriesC / 100);
+                    //var procentOrApplied = Math.round(procentOrange) * 8;
                     // $('#frBun').show();
                     $('#frBun').css('display','inline-block');
-                    $('#frBun').html('<p>Friendship bundles:' + ' ' + contor + ' links</p>');
+                    $('#frBun').html('<p>Friendship bundles:' + ' ' + contorFriends + ' links</p>');
                     // $('#strongBun').show();
                     $('#strongBun').css('display','inline-block');
                     $('#strongBun').html('<p>Strong bundles:' + ' ' + categoriesC + ' links</p>');
@@ -318,10 +319,6 @@ $(document).ready(function () {
                     }
                 }
             }
-   
-         
-            
-
         }
         return false;
     }
